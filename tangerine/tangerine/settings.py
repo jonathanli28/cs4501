@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'myapplication',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -76,11 +77,14 @@ WSGI_APPLICATION = 'tangerine.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'cs4501',
-        'USER': 'www',
-        'PASSWORD': '$3cureUS',
-        'HOST': 'db',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
+   # 'default': {
+    #    'ENGINE': 'mysql.connector.django',
+     #   'NAME': 'cs4501',
+     #   'USER': 'www',
+      #  'PASSWORD': '$3cureUS',
+     #   'HOST': 'db',
     }
 }
 
