@@ -1,0 +1,24 @@
+
+mysql:
+  image: mysql:5.7.14
+
+  volumes:
+   - "~/cs4501/db:/var/lib/mysql"
+  environment:
+    MYSQL_ROOT_PASSWORD: $$3cureUS
+    MYSQL_DATABASE: cs4501
+    MYSQL_USER: www
+    MYSQL_PASSWORD: $$3cureUS
+ # ports:
+  #  - "3306:3306"
+models:
+    image: tp33/django
+    links:
+      - mysql
+    #external_links:
+    #  -  mysql:db
+    volumes:
+      - ~/cs4501/tangerine:/app
+    ports:
+      - "8001:8000"
+    command: bash -c "mod_wsgi-express start-server --reload-on-changes ~/cs4501/tangerine/tangerine/wsgi.py"
