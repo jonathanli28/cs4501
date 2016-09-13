@@ -103,7 +103,7 @@ def register(request):
                 profile.picture = request.FILES['picture']
 
             email_subject = 'Account Confirmation'
-            email_body = "Thanks for creating an account with SafeCollab. Your username is: %s and your passsword is: %s. Keep your information safe!" %(user.username, cleartextpass)
+            email_body = "Thanks for creating an account with Tangerine. Your username is: %s and your passsword is: %s. Keep your information safe!" %(user.username, cleartextpass)
 
             send_mail(email_subject, email_body, 'group27emaildjango@gmail.com', [user.email], fail_silently=False)
 
