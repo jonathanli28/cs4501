@@ -17,7 +17,8 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world.")
+
+    return HttpResponse("Hello, World.\n")
 
 def login(request):
     auth_logout(request)
@@ -129,3 +130,4 @@ def register(request):
     return render(request,
             'myapplication/register.html',
             {'user_form': user_form, 'profile_form': profile_form, 'registered': registered} )
+
