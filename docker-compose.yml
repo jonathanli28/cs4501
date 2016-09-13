@@ -1,7 +1,9 @@
 
+#ask about 
+
+
 mysql:
   image: mysql:5.7.14
-
   volumes:
    - "~/cs4501/db:/var/lib/mysql"
   environment:
