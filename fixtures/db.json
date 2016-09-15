@@ -1,0 +1,54 @@
+[
+  {
+    "model": "myapplication.User",
+    "pk": 1,
+    "fields": {
+      "username": "pinckboss",
+      "first_name": "Tom",
+      "last_name": "Pinckney",
+      "date_created": "2016-09-15T17:40:43.511Z",
+      "user_id": "3d9d7297-dd35-4edb-a188-b68a80ef2c5c"
+    }
+  },
+  {
+    "model": "myapplication.User",
+    "pk": 2,
+    "fields": {
+      "username": "ianian",
+      "first_name": "Ian",
+      "last_name": "TA",
+      "date_created": "2016-09-15T17:45:43.511Z",
+      "user_id": "17ea54b5-131d-4485-963a-cdc9f8a2a635"
+    }
+  },
+  {
+    "model": "myapplication.User",
+    "pk": 3,
+    "fields": {
+      "username": "lean",
+      "first_name": "Leandra",
+      "last_name": "TA",
+      "date_created": "2016-09-15T17:46:10.511Z",
+      "user_id": "ac7cfeda-ed71-4b75-8441-23202c62447b"
+    }
+  },
+  {
+    "model": "myapplication.BicycleItem",
+    "pk": 1,
+    "fields": {
+      "picture": "",
+      "name": "Trek Madone 2015 base",
+      "bike_style": "Road",
+      "brake_style": "Caliper",
+      "color": "White",
+      "frame_material": "Carbon Fiber",
+      "speeds": "22",
+      "package_height: "10",
+      "shipping_weight": "16",
+      "wheel_size": "700c",
+      "bike_description": "Super nice bike OMG",
+      "average_star_rating": "5",
+      "item_id": "da8a1259-d24d-45b9-8320-b7b612154410"
+    }
+  },
+]
