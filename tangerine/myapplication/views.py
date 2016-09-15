@@ -1,22 +1,36 @@
-from django.shortcuts import render
-from django.shortcuts import render, render_to_response, get_object_or_404, redirect
-from django.contrib.auth import authenticate
-from django.contrib.auth import logout as auth_logout
-from django.contrib.auth import login as auth_login
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-from django.core.urlresolvers import reverse
-from django.contrib.auth.decorators import login_required
-from myapplication.forms import UserForm, UserProfileForm
-from django.core.mail import send_mail
-from django.contrib.auth.views import password_reset, password_reset_confirm
-from Crypto.Hash import SHA256
-from Crypto.Cipher import ARC4
-
-# Create your views here.
+from django.core import serializers
+from .models import User, BicycleItem
 from django.http import HttpResponse
-
+# Create your views here.
 
 def index(request):
 
     return HttpResponse("Hello, World.\n")
+
+def retrieve_or_modify_user_info(request):
+    if request.method == 'GET':
+        user = User.user_id(request.GET)
+        userJSON = serializers.serialize('json', [ user, ])
+        return HttpResponse(userJSON)
+    elif request.method == 'POST':
+        user = User.user_id(request.GET)
+        for key in request:
+            user.key = request.POST[key]
+
+def retrieve_or_modify_item_info(request):
+    if request.method == 'GET':
+        bikeObj = BicycleItem.item_id(request.GET)
+        itemJSON = serializers.serialize('json', [ bikeObj, ])
+        return HttpResponse(itemJSON)
+    elif request.method == 'POST':
+        bike = BicycleItem.item_id(request.GET)
+        for key in request:
+            bike.key = request.POST[key]
+
+def createItem(request):
+    bike = BicycleItem
+    for key in request:
+            bike.key = request.POST[key]
+
+
 

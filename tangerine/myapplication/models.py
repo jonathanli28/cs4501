@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
 from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
 
@@ -28,7 +27,7 @@ class BicycleItem:
     average_star_rating = size = models.IntegerField(validators=[MinValueValidator(0),
                                        MaxValueValidator(5)])
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class ItemReview:
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
