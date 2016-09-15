@@ -3,6 +3,12 @@ from django.contrib.auth.models import User, Group
 from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
 
+class User:
+    username = models.CharField(max_length=360)
+    first_name = models.CharField(max_length=360)
+    last_name = models.CharField(max_length=360)
+    date_created = models.DateTimeField(auto_now_add=True)
+    user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class BicycleItem:
     picture = models.ImageField(upload_to='bicycle_images', blank=True)
