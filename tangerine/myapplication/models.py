@@ -7,7 +7,8 @@ class User:
     first_name = models.CharField(max_length=360)
     last_name = models.CharField(max_length=360)
     date_created = models.DateTimeField(auto_now_add=True)
-    user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    userid = models.BigIntegerField(max_length=360)
+    #user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class BicycleItem:
     picture = models.ImageField(upload_to='bicycle_images', blank=True)
@@ -27,7 +28,7 @@ class BicycleItem:
     average_star_rating = size = models.IntegerField(validators=[MinValueValidator(0),
                                        MaxValueValidator(5)])
 
-    item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    #item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class ItemReview:
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
