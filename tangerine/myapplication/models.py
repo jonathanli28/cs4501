@@ -2,15 +2,15 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 import uuid
 
-class User:
+class User(models.Model):
     username = models.CharField(max_length=360)
     first_name = models.CharField(max_length=360)
     last_name = models.CharField(max_length=360)
     date_created = models.DateTimeField(auto_now_add=True)
-    userid = models.BigIntegerField(max_length=360)
+    userid = models.BigIntegerField()
     #user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-class BicycleItem:
+class BicycleItem(models.Model):
     picture = models.ImageField(upload_to='bicycle_images', blank=True)
     name = models.CharField(max_length=360)
 
@@ -25,7 +25,7 @@ class BicycleItem:
 
     bike_description = models.TextField(max_length=50000)
 
-    average_star_rating = size = models.IntegerField(validators=[MinValueValidator(0),
+    average_star_rating = models.IntegerField(validators=[MinValueValidator(0),
                                        MaxValueValidator(5)])
 
     #item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -33,4 +33,4 @@ class BicycleItem:
 class ItemReview:
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     review = models.TextField(max_length=50000)
-    star_rating = size = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    star_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])

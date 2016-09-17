@@ -11,7 +11,7 @@ def retrieve_or_modify_user_info(request):
     if request.method == 'GET':
         url = request.path
     usrStr = url.split("/")[4]
-    user = User.userid(usrStr)#place holder to get user id 
+    user = User.objects.get(userid = usrStr)
     userJSON = serializers.serialize('json', [ user, ])
     return HttpResponse(userJSON)
     #elif request.method == 'POST':
