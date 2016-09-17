@@ -10,6 +10,9 @@ class User(models.Model):
     userid = models.BigIntegerField()
     #user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
+
+
+
 class BicycleItem(models.Model):
     picture = models.ImageField(upload_to='bicycle_images', blank=True)
     name = models.CharField(max_length=360)
