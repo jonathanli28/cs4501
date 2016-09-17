@@ -10,14 +10,30 @@ def index(request):
 def retrieve_or_modify_user_info(request):
     if request.method == 'GET':
         url = request.path
+        usrStr = url.split("/")[4]
+        user = User.objects.get(userid = usrStr)
+        userJSON = serializers.serialize('json', [ user, ])
+        return HttpResponse(userJSON)
+    elif request.method == 'POST':
+        url = request.path
+        usrStr = url.split("/")[4]
+        user = User.objects.get(userid = usrStr)
+        for key in request:
+            user.key = request.POST.get(key, False)
+        user.save()
+        return HttpResponse(status=status.HTTP_201_CREATED)
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+def create_user(request):
+    url = request.path
     usrStr = url.split("/")[4]
-    user = User.objects.get(userid = usrStr)
-    userJSON = serializers.serialize('json', [ user, ])
-    return HttpResponse(userJSON)
-    #elif request.method == 'POST':
-     #   user = User.user_id(request.GET)
-      #  for key in request:
-       #     user.key = request.POST[key]
+
+    for key in request:
+        user.key = request.POST.get(key, False)
+        user.save()
+        return HttpResponse(status=status.HTTP_201_CREATED)
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+
+
 #url(r'^api/items/(?P<uuid>[^/]+)/$'
 def retrieve_or_modify_item_info(request):
     """

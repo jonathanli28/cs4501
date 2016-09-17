@@ -1,0 +1,21 @@
+[
+    {
+        "model": "myapplication.BicycleItem",
+        "pk": 1,
+        "fields": {
+        "picture": "",
+        "name": "Trek Madone 2015 base",
+        "bike_style": "Road",
+        "brake_style": "Caliper",
+        "color": "White",
+        "frame_material": "Carbon Fiber",
+        "speeds": "22",
+        "package_height": "10",
+        "shipping_weight": "16",
+        "wheel_size": "700c",
+        "bike_description": "Super nice bike OMG",
+        "average_star_rating": "5",
+        "item_id": "da8a1259-d24d-45b9-8320-b7b612154410"
+        }
+    }
+]
