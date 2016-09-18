@@ -10,9 +10,12 @@ def index(request):
 def retrieve_or_modify_user_info(request):
     if request.method == 'GET':
         url = request.path
-        usrStr = url.split("/")[4]
+        usrStr = url.split("/")[-1] # make sure to check this code 
         user = User.objects.get(userid = usrStr)
         userJSON = serializers.serialize('json', [ user, ])
+        userJSON.status = True;
+        userJSON.message = "successfully retrieved user";
+
         return HttpResponse(userJSON)
     elif request.method == 'POST':
         url = request.path
@@ -21,10 +24,7 @@ def retrieve_or_modify_user_info(request):
         for key in request:
             user.key = request.POST.get(key, False)
         user.save()
-        return HttpResponse(status=status.HTTP_201_CREATED)
-        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
 def create_user(request):
-    
     user = User.objects.create(userid=request.POST.get("userid", False))
     stringster = ""
     for key in request.POST:

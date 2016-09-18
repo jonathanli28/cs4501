@@ -7,7 +7,6 @@ class User(models.Model):
     first_name = models.CharField(max_length=360)
     last_name = models.CharField(max_length=360)
     date_created = models.DateTimeField(auto_now_add=True)
-    userid = models.BigIntegerField()
     #user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 
@@ -25,13 +24,9 @@ class BicycleItem(models.Model):
     package_height = models.CharField(max_length=360)
     shipping_weight = models.CharField(max_length=360)
     wheel_size = models.CharField(max_length=360)
-
     bike_description = models.TextField(max_length=50000)
-
     average_star_rating = models.IntegerField(validators=[MinValueValidator(0),
                                        MaxValueValidator(5)])
-
-    #item_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
 class ItemReview:
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
