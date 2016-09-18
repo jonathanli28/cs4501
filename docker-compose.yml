@@ -1,27 +1,18 @@
-#ask about 
+#1. ask about how to log into database
+#2. (answered)POST results - errors? JSON query status, and error message, edge cases 
+#3. (answered)primary keys and id(what kind of ids?) - use primary key
+#4. (answered)format our json? - no 
+#5. reasonable number of fixtures
+#6. drop databases after each run? 
 
-
-mysql:
-  image: mysql:5.7.14
-  volumes:
-   - "db:/var/lib/mysql"
-  environment:
-    MYSQL_ROOT_PASSWORD: $$3cureUS
-    MYSQL_DATABASE: cs4501
-    MYSQL_USER: www
-    MYSQL_PASSWORD: $$3cureUS
-  ports:
-    - "3306:3306"
+#you should manually instantiate a database container called mysql
 models:
     image: tp33/django
-    links:
-      - mysql:db
-    #external_links:
-    #  -  mysql:db
+    external_links:
+      -  mysql:db
     volumes:
       - ./tangerine:/app
     ports:
       - "8001:8000"
       #command: bash -c "<command_1> && <command_2> && ..."
-    command: bash -c "python manage.py makemigrations && python manage.py migrate &&
-      mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata ./fixtures/db.json && mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py "
