@@ -30,7 +30,6 @@ class BicycleItem(models.Model):
     average_star_rating = models.IntegerField(validators=[MinValueValidator(0),
                                        MaxValueValidator(5)])
 
-
 class ItemReview(models.Model):
     review = models.TextField(max_length=50000)
     star_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
