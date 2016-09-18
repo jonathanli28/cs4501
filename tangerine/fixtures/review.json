@@ -1,0 +1,19 @@
+[
+    {
+        "model": "myapplication.ItemReview",
+        "pk": 1,
+        "fields": {
+            "review": "AWESOME! That is all.",
+            "star_rating": 4
+        }
+    },
+    {
+        "model": "myapplication.ItemReview",
+        "pk": 2,
+        "fields": {
+            "review": "So... I saw this bike the other day on Amazon selling for $850 or so, and the MSRP is $1000, so I decided to come to this beautiful site to see if you had any bicycles, new or used. Lo and behold, I saw this sexy bicycle on sale for only $600 so I snatched it up. I've been riding it weekly and I really love it! Five stars all around.",
+            "star_rating": 5
+        }
+    }
+    
+]
