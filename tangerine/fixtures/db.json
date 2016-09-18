@@ -44,5 +44,43 @@
             "review": "So... I saw this bike the other day on Amazon selling for $850 or so, and the MSRP is $1000, so I decided to come to this beautiful site to see if you had any bicycles, new or used. Lo and behold, I saw this sexy bicycle on sale for only $600 so I snatched it up. I've been riding it weekly and I really love it! Five stars all around.",
             "star_rating": 5
         }
+    },
+    {
+        "model": "myapplication.BicycleItem",
+        "pk": 1,
+        "fields": {
+            "picture": "",
+            "name": "Trek Madone 2015 base",
+            "bike_style": "Road",
+            "brake_style": "Caliper",
+            "color": "White",
+            "frame_material": "Carbon Fiber",
+            "speeds": "22",
+            "package_height": "10",
+            "shipping_weight": "16",
+            "wheel_size": "700c",
+            "bike_description": "Super nice bike OMG",
+            "average_star_rating": "5"
+        }
+    },
+    
+    {
+        "model": "myapplication.BicycleItem",
+        "pk": 2,
+        "fields": {
+            "picture": "",
+            "name": "Diamondback Century 2016",
+            "bike_style": "Road",
+            "brake_style": "Mechanical Disc",
+            "color": "Grey",
+            "frame_material": "Aluminum 7005",
+            "speeds": "18",
+            "package_height": "10",
+            "shipping_weight": "30",
+            "wheel_size": "700c",
+            "bike_description": "Beautiful machine. Great price.",
+            "average_star_rating": "4"
+        }
     }
+   
 ]

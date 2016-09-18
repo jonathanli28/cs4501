@@ -10,8 +10,8 @@ urlpatterns = [
 
     url(r'^api/item/get/[0-9]+/?$', views.retrieve_or_modify_item_info),
     url(r'^api/item/modify/[0-9]+/?$', views.retrieve_or_modify_item_info),
-    url(r'^api/item/delete/[0-9]+/?$', views.retrieve_or_modify_item_info),
-    url(r'^api/item/create/?$', views.retrieve_or_modify_item_info),
+    url(r'^api/item/delete/[0-9]+/?$', views.delete_item),
+    url(r'^api/item/create/?$', views.createItem),
 
     url(r'^api/itemreview/get/[0-9]+/?$', views.retrieve_or_modify_review),
     url(r'^api/itemreview/modify/[0-9]+/?$', views.retrieve_or_modify_review),

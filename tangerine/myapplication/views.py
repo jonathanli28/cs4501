@@ -122,16 +122,18 @@ def createItem(request):
     retJSON = {}
     retJSON['status'] = True
     retJSON['message'] = "Successfully created bike"
-    return HttpResponse(status = 200)
+    retJSON = json.dumps(retJSON)
+    return HttpResponse(retJSON)
 
 def delete_item(request):
     url = request.path
     usrStr = url.split("/")[5]
-    bike = BicycleItem.objects.get(userid = usrStr)
+    bike = BicycleItem.objects.get(pk = usrStr)
     bike.delete()
     retJSON = {}
     retJSON['status'] = True
     retJSON['message'] = "Successfully deleted bike"
+    retJSON = json.dumps(retJSON)
     return HttpResponse(retJSON)
 
 def retrieve_or_modify_review(request):
