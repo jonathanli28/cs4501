@@ -11,6 +11,9 @@ urlpatterns = [
     url(r'^api/items/modify/[0-9]+/$', views.retrieve_or_modify_item_info),
     url(r'^api/items/delete/[0-9]+/$', views.retrieve_or_modify_item_info),
     url(r'^api/items/create/$', views.retrieve_or_modify_item_info),
+
+    #match all other urls
+    url ('', views.other),
     #url(r'^api/items/(?P[0-9]+)/$', views.retrieve_or_modify_item_info),
     
 ]
