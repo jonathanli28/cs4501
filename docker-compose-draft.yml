@@ -1,0 +1,16 @@
+
+#ask about 
+
+
+models:
+    image: tp33/django
+    external_links:
+      -  mysql:db
+    volumes:
+      - ./:/app
+    ports:
+      - "8001:8000"
+      #ask about httpd already running 
+      #command: bash -c "<command_1> && <command_2> && ..."
+    #command: bash -c "python ./tangerine/manage.py loaddata ./fixtures/db.json && python ./tangerine/manage.py makemigrations && python ./tangerine/manage.py migrate && mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py"
+    command: bash -c "ls -la && mod_wsgi-express start-server --reload-on-changes --working-directory /app/tangerine/tangerine wsgi.py"
