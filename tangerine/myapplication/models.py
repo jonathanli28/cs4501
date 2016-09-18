@@ -31,6 +31,6 @@ class BicycleItem(models.Model):
                                        MaxValueValidator(5)])
 
 
-class ItemReview:
+class ItemReview(models.Model):
     review = models.TextField(max_length=50000)
     star_rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
