@@ -23,50 +23,53 @@ def retrieve_or_modify_user_info(request):
             userJSON = json.dumps(userJSON)
         else:
             userJSON = serializers.serialize('json', [user,])
-            struct = json.loads(userJSON)
-            struct[0]['status'] = True
-            struct[0]['message'] = "Correctly obtained user"
+            temp = json.loads(userJSON)
+            temp[0]['status'] = True
+            temp[0]['message'] = "Correctly obtained user"
             userJSON = json.dumps(struct[0])           
         return HttpResponse(userJSON)
     elif request.method == 'POST':
         url = request.path
         usrStr = url.split("/")[5]
-        user = None
+        retJSON = {}
         try:
             user = User.objects.get(pk = usrStr)
-        except User.DoesNotExist:
-            user = None
-        retJSON = {}
-        if user == None:
-            retJSON['status'] = False
-            retJSON['message'] = "There is no user specified"
-            retJSON = json.dumps(userJSON)
-        else:
-            for key in request:
-                user.key = request.POST.get(key, False)
+            userJSON = serializers.serialize('json', [user,])
+            for key in request.POST:
+                setattr(user, key, request.POST.get(key, False))
             user.save()
+            userJSON = serializers.serialize('json', [user,])
             retJSON['status'] = True
             retJSON['message'] = "Successfully modified user"
             retJSON = json.dumps(retJSON)
-        return HttpResponse(retJSON)
+        except User.DoesNotExist:
+            user = None
+            retJSON['status'] = False
+            retJSON['message'] = "There is no user specified"
+            retJSON = json.dumps(userJSON)
+            retJSON = {}        
+        return HttpResponse(usrStr)
 def create_user(request):
     user = User.objects.create()
     stringster = ""
     for key in request.POST:
-        stringster +=key
         setattr(user, key, request.POST.get(key, False))
     user.save()
     retJSON = {}
     retJSON['status'] = True
     retJSON['message'] = "Successfully created user"
-    return HttpResponse(status = 200)
+    retJSON = json.dumps(retJSON)
+    return HttpResponse(retJSON)
     #include error handles later
 def delete_user(request):
     url = request.path
     usrStr = url.split("/")[5]
-    user = User.objects.get(userid = usrStr)
+    user = User.objects.get(pk = usrStr)
     user.delete()
-    return HttpResponse(usrStr + "hello")
+    retJSON = {}
+    retJSON['status'] = True
+    retJSON['message'] = "Successfully deleted user"
+    return HttpResponse(retJSON)
 #url(r'^api/items/(?P<uuid>[^/]+)/$'
 def retrieve_or_modify_item_info(request):
     if request.method == 'GET':
@@ -102,18 +105,18 @@ def retrieve_or_modify_item_info(request):
             retJSON['message'] = "There is no bike specified"
             retJSON = json.dumps(bikeJSON)
         else:
-            for key in request:
-                bike.key = request.POST.get(key, False)
+            for key in request.POST:
+                setattr(bike, key, request.POST.get(key, False))
             bike.save()
             retJSON['status'] = True
             retJSON['message'] = "Successfully modified bike"
             retJSON = json.dumps(retJSON)
         return HttpResponse(retJSON)
+
 def createItem(request):
     bike = BicycleItem.objects.create()
     stringster = ""
     for key in request.POST:
-        stringster +=key
         setattr(bike, key, request.POST.get(key, False))
     bike.save()
     retJSON = {}
@@ -126,7 +129,10 @@ def delete_item(request):
     usrStr = url.split("/")[5]
     bike = BicycleItem.objects.get(userid = usrStr)
     bike.delete()
-    return HttpResponse(usrStr + "hello")
+    retJSON = {}
+    retJSON['status'] = True
+    retJSON['message'] = "Successfully deleted bike"
+    return HttpResponse(retJSON)
 
 def retrieve_or_modify_review(request):
     if request.method == 'GET':
@@ -159,11 +165,11 @@ def retrieve_or_modify_review(request):
         retJSON = {}
         if review == None:
             retJSON['status'] = False
-            retJSON['message'] = "There is no bike specified"
+            retJSON['message'] = "There is no review specified"
             retJSON = json.dumps(reviewJSON)
         else:
-            for key in request:
-                review.key = request.POST.get(key, False)
+            for key in request.POST:
+                setattr(review, key, request.POST.get(key, False))
             review.save()
             retJSON['status'] = True
             retJSON['message'] = "Successfully modified review"
@@ -171,22 +177,25 @@ def retrieve_or_modify_review(request):
         return HttpResponse(retJSON)
 def createItemReview(request):
     review = ItemReview.objects.create()
-    stringster = ""
+
     for key in request.POST:
-        stringster +=key
-        setattr(review, key, request.POST.get(key, False))
+       setattr(review, key, request.POST.get(key, False))
     review.save()
     retJSON = {}
     retJSON['status'] = True
     retJSON['message'] = "Successfully created review"
-    return HttpResponse(status = 200)
+    retJSON = json.dumps(retJSON)
+    return HttpResponse(retJSON)
 
 def delete_item_review(request):
     url = request.path
     reviewStr = url.split("/")[5]
-    review = ItemReview.objects.get(userid = reviewStr)
+    review = ItemReview.objects.get(pk= reviewStr)
     review.delete()
-    return HttpResponse(reviewStr + "hello")
+    retJSON = {}
+    retJSON['status'] = True
+    retJSON['message'] = "Successfully deleted bike"
+    return HttpResponse(retJSON)
 
 
 def invalidURL(request):
