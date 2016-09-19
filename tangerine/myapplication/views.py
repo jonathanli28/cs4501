@@ -26,7 +26,7 @@ def retrieve_or_modify_user_info(request):
             temp = json.loads(userJSON)
             temp[0]['status'] = True
             temp[0]['message'] = "Correctly obtained user"
-            userJSON = json.dumps(struct[0])           
+            userJSON = json.dumps(temp[0])           
         return HttpResponse(userJSON)
     elif request.method == 'POST':
         url = request.path
@@ -47,8 +47,7 @@ def retrieve_or_modify_user_info(request):
             retJSON['status'] = False
             retJSON['message'] = "There is no user specified"
             retJSON = json.dumps(userJSON)
-            retJSON = {}        
-        return HttpResponse(usrStr)
+        return HttpResponse(retJSON)
 def create_user(request):
     user = User.objects.create()
     stringster = ""
@@ -86,10 +85,10 @@ def retrieve_or_modify_item_info(request):
             bikeJSON = json.dumps(bikeJSON)
         else:
             bikeJSON = serializers.serialize('json', [bike,])
-            struct = json.loads(bikeJSON)
-            struct[0]['status'] = True
-            struct[0]['message'] = "Correctly obtained item"
-            bikeJSON = json.dumps(struct[0])
+            temp = json.loads(bikeJSON)
+            temp[0]['status'] = True
+            temp[0]['message'] = "Correctly obtained item"
+            bikeJSON = json.dumps(temp[0])
         return HttpResponse(bikeJSON)
     elif request.method == 'POST':
         url = request.path
@@ -151,10 +150,10 @@ def retrieve_or_modify_review(request):
             reviewJSON = json.dumps(reviewJSON)
         else:
             reviewJSON = serializers.serialize('json', [review,])
-            struct = json.loads(reviewJSON)
-            struct[0]['status'] = True
-            struct[0]['message'] = "Correctly obtained review"
-            reviewJSON = json.dumps(struct[0])
+            temp = json.loads(reviewJSON)
+            temp[0]['status'] = True
+            temp[0]['message'] = "Correctly obtained review"
+            reviewJSON = json.dumps(temp[0])
         return HttpResponse(reviewJSON)
     elif request.method == 'POST':
         url = request.path
@@ -197,6 +196,7 @@ def delete_item_review(request):
     retJSON = {}
     retJSON['status'] = True
     retJSON['message'] = "Successfully deleted bike"
+    retJSON = json.dumps(retJSON)
     return HttpResponse(retJSON)
 
 
