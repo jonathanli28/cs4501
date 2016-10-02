@@ -31,3 +31,10 @@ def individualItemData(request):
         response = urllib.request.urlopen(urlForParticularItem + str(itemPK[0]))
         bikeItem = json.loads(response.read)
         return JsonResponse(bikeItem)
+
+def invalidURL(request):
+    obj= {}
+    obj['status'] = False
+    obj['message'] = "Invalid api request"
+    return JsonResponse(obj)
+
