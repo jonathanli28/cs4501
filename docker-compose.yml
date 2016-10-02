@@ -18,24 +18,4 @@ models:
     ports:
       - "8001:8000"
       #command: bash -c "<command_1> && <command_2> && ..."
-    command: bash -c "python manage.py startapp web && python manage.py startapp exp && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata ./fixtures/db.json && mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py "
-
-exp:
-   image: tp33/django:
-   links:
-      - models:models-api
-   ports:
-      - "8002:8000"
-   volumes:
-      - ./exp:/app
-   command: "mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
-
-web:
-   image: tp33/django:
-   links:
-      - exp:exp-api
-   ports:
-      - "8000:8000"
-   volumes:
-      - ./web:/app
-   command: "mod_wsgi-express start-server --reload-on-changes ./web/wsgi.py"
+    command: bash -c " python manage.py makemigrations && python manage.py migrate && python manage.py loaddata ./fixtures/db.json && mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py "
