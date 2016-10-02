@@ -9,12 +9,15 @@ def homePageData(request):
         list = []
         urlForLastItem = "http://localhost:8001/api/v1/item/get/"
         urlForLatest = "http://localhost:8001/api/v1/item/getlatest"
-        response = urllib.request.urlopen(urlForLatest)
-        latest = json.loads(response.read)
+        
+        req = urllib.request.Request(urlForLatest)
+        ret = urllib.request.urlopen(req).read().decode('utf-8')
+        latest = json.loads(ret.read)
 
         for x in range(0, 3):
             rearNumber = latest["fields"]["pk"]
-            response = urllib.request.urlopen(urlForLastItem + str(rearNumber - x))
+            requester = urllib.request.Request(urlForLastItem + str(rearNumber - x))
+            response = urllib.request.urlopen(requester).read().decode('utf-8')
             bikeItem = json.load(response.read())
             list.append(bikeItem)
 
