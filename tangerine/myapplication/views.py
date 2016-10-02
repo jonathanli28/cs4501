@@ -21,7 +21,6 @@ def retrieve_or_modify_user_info(request):
             userJSON = {}
             userJSON['status'] = False
             userJSON['message'] = "There is no user specified"
-            userJSON = userJSON
         else:
             userJSON = serializers.serialize('json', [user,])
             temp = json.loads(userJSON)
@@ -42,7 +41,6 @@ def retrieve_or_modify_user_info(request):
             userJSON = serializers.serialize('json', [user,])
             retJSON['status'] = True
             retJSON['message'] = "Successfully modified user"
-            retJSON = retJSON
         except User.DoesNotExist:
             user = None
             retJSON['status'] = False
@@ -69,6 +67,7 @@ def delete_user(request):
     retJSON['status'] = True
     retJSON['message'] = "Successfully deleted user"
     return JsonResponse(retJSON)
+
 #url(r'^api/items/(?P<uuid>[^/]+)/$'
 def retrieve_or_modify_item_info(request):
     if request.method == 'GET':
@@ -129,6 +128,25 @@ def delete_item(request):
     retJSON['status'] = True
     retJSON['message'] = "Successfully deleted bike"
     return JsonResponse(retJSON)
+
+def getlatestitem(request):
+    if request.method == 'GET':
+        url = request.path
+        try:
+            bike = BicycleItem.objects.latest('pk')
+        except BicycleItem.DoesNotExist:
+            bike = None
+        if bike == None:
+            bikeJSON = {}
+            bikeJSON['status'] = False
+            bikeJSON['message'] = "There is no bike specified"
+        else:
+            bikeJSON = serializers.serialize('json', [bike,])
+            temp = json.loads(bikeJSON)
+            temp[0]['status'] = True
+            temp[0]['message'] = "Correctly obtained item"
+            bikeJSON = temp[0]
+        return JsonResponse(bikeJSON)
 
 def retrieve_or_modify_review(request):
     if request.method == 'GET':
@@ -193,6 +211,6 @@ def invalidURL(request):
     obj= {}
     obj['status'] = False
     obj['message'] = "Invalid api request"
-    return JsonResponse(json_data)
+    return JsonResponse(obj)
 
 

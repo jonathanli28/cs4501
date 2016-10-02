@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^api/v1/item/modify/[0-9]+/?$', views.retrieve_or_modify_item_info),
     url(r'^api/v1/item/delete/[0-9]+/?$', views.delete_item),
     url(r'^api/v1/item/create/?$', views.createItem),
+    url(r'^api/v1/item/getlatest/?$', views.getlatestitem),
 
     url(r'^api/v1/itemreview/get/[0-9]+/?$', views.retrieve_or_modify_review),
     url(r'^api/v1/itemreview/modify/[0-9]+/?$', views.retrieve_or_modify_review),
