@@ -10,7 +10,6 @@ def homePageData(request):
         list = []
         urlForLastItem = "http://models-api:8000/api/v1/item/get/"
         urlForLatest = "http://models-api:8000/api/v1/item/getlatest"
-        
         req = urllib.request.Request(urlForLatest)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
         latest = json.loads(ret)
@@ -26,14 +25,13 @@ def homePageData(request):
         
         return JsonResponse(final)
 
-
 def individualItemData(request, pk):
     if request.method == 'GET':
         urlForParticularItem = "http://models-api:8000/api/v1/item/get/"
         requester = urllib.request.Request(urlForParticularItem + pk)
         response = urllib.request.urlopen(requester).read().decode('utf-8')
         bikeItem = json.loads(response)
-        return JsonResponse(bikeItem)
+    return JsonResponse(bikeItem)
 
 def invalidURL(request):
     obj= {}
