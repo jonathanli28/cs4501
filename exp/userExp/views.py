@@ -9,7 +9,7 @@ def homePageData(request):
         list = []
         urlForLastItem = "http://localhost:8001/api/v1/item/get/"
         urlForLatest = "http://localhost:8001/api/v1/item/getlatest"
-        
+
         req = urllib.request.Request(urlForLatest)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
         latest = json.loads(ret.read)
@@ -25,9 +25,11 @@ def homePageData(request):
         return JsonResponse(final)
 
 def individualItemData(request):
-    if request.method == 'POST':
-        itemPK = request.POST.get('item', '')
+    if request.method == 'GET':
+        url = request.path
+        urlStr = url.split("/")[5]
+
         urlForParticularItem = "http://localhost:8001/api/v1/item/get/"
-        response = urllib.request.urlopen(urlForParticularItem + str(itemPK[0]))
+        response = urllib.request.urlopen(urlForParticularItem + urlStr)
         bikeItem = json.loads(response.read)
         return JsonResponse(bikeItem)
