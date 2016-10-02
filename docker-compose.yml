@@ -22,11 +22,11 @@ models:
 
 
 exp:
-   image: tp33/django:
-   links:
+   image: tp33/django
+   links: 
       - models:models-api
    ports:
       - "8002:8000"
-   volumes:
+   volumes: 
       - ./exp:/app
    command: "mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
