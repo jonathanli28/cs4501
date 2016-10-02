@@ -18,11 +18,11 @@ class GetItemTestCase(TestCase):
             #nothing to tear down
             """
 class GetHomePageTestCase(TestCase):
-  def setUp(self):     #setUp method is called before each test in this class
-     pass              #nothing to set uunpit
+    def setUp(self):     #setUp method is called before each test in this class
+        pass              #nothing to set uunpit
 
-  def test_success_response(self):
-     response = self.client.get(reverse('homePage')  #assumes user with id 1 is stored in db
-     self.assertEqual(response.status_code, 200)
-  def tearDown(self):  #tearDown method is called after each test
-     pass  
+    def test_success_response(self):
+        response = self.client.get(reverse('homePage'))  #assumes user with id 1 is stored in db
+        self.assertEqual(response.status_code, 200)
+    def tearDown(self):  #tearDown method is called after each test
+        pass
