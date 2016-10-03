@@ -13,7 +13,7 @@ def homePageData(request):
         req = urllib.request.Request(urlForLatest)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
         latest = json.loads(ret)
-        
+       
         for x in range(0, 3):
             rearNumber = int(latest["pk"])
             requester = urllib.request.Request(urlForLastItem + str(rearNumber - x))
