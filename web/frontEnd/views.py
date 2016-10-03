@@ -30,15 +30,28 @@ def itempageSplash(request, pk):
         req = urllib.request.Request(urlForExpLayer + pk)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
         latest = json.loads(ret)
-        return JsonResponse(latest)
-       # listME = ['name': latest["bike1"]["fields"]["name"], 'pk': latest["bike1"]["pk"],
+        #return JsonResponse(latest)
+        listME = {'name': latest["fields"]["name"], 
+        'pk': latest["pk"],
+        "bike_style": latest["fields"]["bike_style"],
+        "brake_style": latest["fields"]["brake_style"],
+        "color": latest["fields"]["color"],
+        "frame-material": latest["fields"]["frame_material"],
+        "speeds": latest["fields"]["speeds"],
+        "package_height": latest["fields"]["package_height"],
+        "shipping_weight": latest["fields"]["shipping_weight"],
+        "wheel_size": latest["fields"]["wheel_size"],
+        "bike_description": latest["fields"]["bike_description"],
+        "average_star_rating": latest["fields"]["average_star_rating"]
+        }
         #'description': latest["bike1"]["fields"]["bike_description"]} ];
 
+        context = {"bicycle":listME}
 
-        #return render(request, "templates/binfo.html", latest)
+        return render(request, "binfo.html", context)
 
 def aboutSplash(request):
-    return render(request, "templates/about.html")
+    return render(request, "about.html")
 
 def invalidURL(request):
     obj= {}

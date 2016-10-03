@@ -123,5 +123,5 @@ STATIC_ROOT = 'app/frontEnd/templates/static'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    'app/frontEnd/templates/static',
+    'app/frontEnd/static',
 ]
