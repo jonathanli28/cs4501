@@ -1,4 +1,3 @@
-
 {% load staticfiles %}
 
 <!DOCTYPE html>
@@ -15,14 +14,8 @@
     <title>CycleOps Bicycle Shoppe</title>
 
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <!--
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"?
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
-    !-->
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 
     <style>
         img {
@@ -70,7 +63,7 @@
     <!-- Page Content -->
     <div class="container">
         <br>
-        <img src="./pics/cycleops_logo.png" alt="">
+        <img src= "{% static '/pics/cycleops_logo.png' %}" alt="">
 
         <!-- Jumbotron Header -->
         <header class="jumbotron hero-spacer">
