@@ -6,7 +6,7 @@ from django.http import JsonResponse
 
 def homepageSplash(request):
     if request.method == 'GET':
-        urlForExpLayer = "http://exp-api:8000/api/v1/homepage"
+        urlForExpLayer = "http://exp-api:8002/api/v1/homepage"
         req = urllib.request.Request(urlForExpLayer)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
 
