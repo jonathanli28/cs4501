@@ -8,8 +8,8 @@ from django.http import JsonResponse
 def homePageData(request):
     if request.method == 'GET':
         list = []
-        urlForLastItem = "http://models-api:8001/api/v1/item/get/"
-        urlForLatest = "http://models-api:8001/api/v1/item/getlatest"
+        urlForLastItem = "http://models-api:8000/api/v1/item/get/"
+        urlForLatest = "http://models-api:8000/api/v1/item/getlatest"
         req = urllib.request.Request(urlForLatest)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
         latest = json.loads(ret)
@@ -27,7 +27,7 @@ def homePageData(request):
 
 def individualItemData(request, pk):
     if request.method == 'GET':
-        urlForParticularItem = "http://models-api:8001/api/v1/item/get/"
+        urlForParticularItem = "http://models-api:8000/api/v1/item/get/"
         requester = urllib.request.Request(urlForParticularItem + pk)
         response = urllib.request.urlopen(requester).read().decode('utf-8')
         bikeItem = json.loads(response)
