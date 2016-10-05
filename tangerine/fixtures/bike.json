@@ -35,5 +35,42 @@
             "bike_description": "Beautiful machine. Great price.",
             "average_star_rating": "4",
         }
+    },
+    {
+        "model": "myapplication.BicycleItem",
+        "pk": 3,
+        "fields": {
+            "picture": "",
+            "name": "Super Magic 2017",
+            "bike_style": "Mountain",
+            "brake_style": "Mechanical Disc",
+            "color": "Grey",
+            "frame-material": "Aluminum 7005",
+            "speeds": "12",
+            "package_height": "10",
+            "shipping_weight": "30",
+            "wheel_size": "900c",
+            "bike_description": "Awesome for offroading!",
+            "average_star_rating": "4",
+        }
     }
+    {
+        "model": "myapplication.BicycleItem",
+        "pk": 3,
+        "fields": {
+            "picture": "",
+            "name": "Super Mountain 2017",
+            "bike_style": "Mountain",
+            "brake_style": "Mechanical Disc",
+            "color": "Grey",
+            "frame_material": "Aluminum 7005",
+            "speeds": "12",
+            "package_height": "10",
+            "shipping_weight": "30",
+            "wheel_size": "800c",
+            "bike_description": "Great for Mountain Climbing!",
+            "average_star_rating": "4"
+        }
+    }
+    
 ]
