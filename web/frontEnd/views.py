@@ -2,7 +2,12 @@ from django.shortcuts import render
 import urllib.request, json
 from django.http import HttpResponseNotFound
 from django.http import JsonResponse
+from django.template.defaulttags import register
 # Create your views here.
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 def homepageSplash(request):
     if request.method == 'GET':
@@ -52,6 +57,10 @@ def itempageSplash(request, pk):
 
 def aboutSplash(request):
     return render(request, "about.html")
+
+def blistSplash(request):
+    return render(request, "blist.html")
+
 
 def invalidURL(request):
     obj= {}
