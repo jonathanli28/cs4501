@@ -5,13 +5,13 @@ from django.http import JsonResponse
 from django.template.defaulttags import register
 # Create your views here.
 
-@register.filter
+baseApi = "http://exp-api:8000/api/v1/"
 def get_item(dictionary, key):
     return dictionary.get(key)
 
 def homepageSplash(request):
     if request.method == 'GET':
-        urlForExpLayer = "http://exp-api:8000/api/v1/homepage"
+        urlForExpLayer = baseApi + "homepage"
         req = urllib.request.Request(urlForExpLayer)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
 
@@ -31,13 +31,12 @@ def homepageSplash(request):
 
 def itempageSplash(request, pk):
     if request.method == 'GET':
-        urlForExpLayer = "http://exp-api:8000/api/v1/itempage/"
+        urlForExpLayer = baseApi + "itempage/"
         req = urllib.request.Request(urlForExpLayer + pk)
         ret = urllib.request.urlopen(req).read().decode('utf-8')
         latest = json.loads(ret)
         #return JsonResponse(latest)
         listME = {'name': latest["fields"]["name"], 
-        'pk': latest["pk"],
         "bike_style": latest["fields"]["bike_style"],
         "brake_style": latest["fields"]["brake_style"],
         "color": latest["fields"]["color"],
