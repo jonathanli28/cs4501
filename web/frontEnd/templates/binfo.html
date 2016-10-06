@@ -69,19 +69,28 @@
         <h1>Bicycle Information</h1>
 
         <hr>
-    </div>
 
 
-    <div class="container">
-        <table style="width:100%">
-            {% for mykey,myvalue in bicycle.items %}
-            <tr>
-            <td>{{ mykey }}</td>
+        <div class="container">
+            <table style="width:100%">
+                {% for mykey,myvalue in bicycle.items %}
+                <tr>
+                <td>{{ mykey }}</td>
 
-            <td>  {{ myvalue }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+                <td>  {{ myvalue }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Internet Scale Labs</p>
+                </div>
+            </div>
+        </footer>
 
     </div>
 
