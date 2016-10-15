@@ -8,9 +8,10 @@ class User(models.Model):
     last_name = models.CharField(max_length=360)
     date_created = models.DateTimeField(auto_now_add=True)
 
-
-
-
+class Authenticator(models.Model):
+    user_id = models.CharField(max_length=360)
+    authenticator = models.CharField(max_length=360, primary_key=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
 class BicycleItem(models.Model):
     picture = models.ImageField(upload_to='bicycle_images', blank=True)
