@@ -60,6 +60,12 @@ def aboutSplash(request):
 def blistSplash(request):
     return render(request, "blist.html")
 
+def signupSplash(request):
+    return render(request, "signup.html")
+
+def loginSplash(request):
+    return render(request, "login.html")
+
 
 def invalidURL(request):
     obj= {}
