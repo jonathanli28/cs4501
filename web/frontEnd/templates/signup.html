@@ -1,0 +1,166 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CycleOps Sign Up</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
+
+    <style>
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home">CycleOps</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="about">About</a>
+                    </li>
+                    <li>
+                        <a href="blist">Item List</a>
+                    </li>
+                    <li>
+                        <a href="blist">Search</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <div id="signup-form" class="well">
+                    <!-- insert Django form stuff -->
+                    <form action="" method="POST">
+
+                        <div class="form-group col-md-6">
+                            <label for="firstName">First Name</label> <span id="firstName_error" class="error_message"></span>
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastName">Last Name</label>
+ <span id="lastName_error" class="error_message"></span>                           <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="email">Email</label>
+ <span id="email_error" class="error_message"></span>                           <input type="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="street1" class="control-label">Street Address 1</label>
+ <span id="streetAddress1_error" class="error_message"></span>                           <input type="text" class="form-control" id="street1" name="street1" placeholder="Street address, P.O. box, company name">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <label for="street2" class="control-label">Street Address 2</label>
+ <span id="streetAddress2_error" class="error_message"></span>                           <input type="text" class="form-control" id="street2" name="street2" placeholder="Apartment, suite, unit, building, floor">
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="city" class="control-label">City</label>
+ <span id="city_error" class="error_message"></span>                           <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="state" class="control-label">State</label>
+                            <select class="form-control" id="state">
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="DC">District Of Columbia</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="zip" class="control-label">Zip Code</label>
+ <span id="zipCode_error" class="error_message"></span>                           <input type="text" class="form-control" id="zip" name="zip" placeholder="#####">
+                        </div>
+                        <button id="signup-submit-button" type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
