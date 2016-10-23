@@ -68,7 +68,8 @@ def signupSplash(request):
             data = {'username': form.username,
                     'first_name': form.first_name,
                     'last_name': form.last_name,
-                    'passwd': form.password1}
+                    'passwd': form.password1,
+                    'email': form.email}
             new_user = urllib.request.urlopen(url, data=json.dumps(data))
             if new_user.getlist('status') is False:
                 render(request, "signuprejected.html")
