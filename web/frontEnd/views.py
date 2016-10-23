@@ -146,20 +146,17 @@ def createlisting(request):
     if not f.is_valid():
         return render(request, 'crlisting.html', {'clisting_form':clisting_form, 'next':next})
 
-    username = f.cleaned_data['username']
-    passwd = f.cleaned_data['passwd'] # need to check this
-    
-    name = f.cleaned_data('name')
-    bike_style = f.cleaned_data('bike_style')
-    brake_style = f.cleaned_data('brake_style')
-    color = f.cleaned_data('color')
-    frame_material = f.cleaned_data('frame_material')
-    speeds = f.cleaned_data('speeds')
-    package_height = f.cleaned_data('package_height')
-    shipping_weight = f.cleaned_data('shipping_weight')
-    wheel_size = f.cleaned_data('wheel_size')
-    average_star_rating = f.cleaned_data('average_star_rating')
-    bike_description = f.cleaned_data('bike_description')
+
+    name = f.cleaned_data['name']
+    bike_style = f.cleaned_data['bike_style']
+    brake_style = f.cleaned_data['brake_style']
+    color = f.cleaned_data['color']
+    frame_material = f.cleaned_data['frame_material']
+    speeds = f.cleaned_data['speeds']
+    package_height = f.cleaned_data['package_height']
+    shipping_weight = f.cleaned_data['shipping_weight']
+    wheel_size = f.cleaned_data['wheel_size']
+    bike_description = f.cleaned_data['bike_description']
 
 
     data = {"picture": "",
@@ -172,7 +169,6 @@ def createlisting(request):
             "package_height": package_height,
             "shipping_weight": shipping_weight,
             "wheel_size": wheel_size,
-            "average_star_rating": average_star_rating,
             "bike_description": bike_description
             }
 
@@ -187,9 +183,25 @@ def createlisting(request):
 
     if resp and not resp['status']:
         # exp service reports invalid authenticator -- treat like user not logged in
-        return HttpResponseRedirect(reverse("login") + "?next=" + reverse("create_listing"))
+        return HttpResponseRedirect(reverse('homePageSplash')+ "?next=" + reverse("crlisting"))
      
     return render("listing_success.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item successfully created"})
+
+def logout(request):
+    url = baseApi + "api/v1/logout"
+
+    auth = request.COOKIES.get('auth')
+    request.delete_cookie(key = auth)
+    authpass = {'auth': auth}
+
+    data = urllib.parse.urlencode(authpass)
+    req = urllib.request.Request(url, data)
+
+    response =  urllib.request.urlopen(req)
+    ret = response.read().decode('utf-8')
+    resp = json.loads(ret)
+
+    return resp
 
 
 
