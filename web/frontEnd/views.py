@@ -3,7 +3,6 @@ import urllib.request, json
 from django.http import HttpResponseNotFound
 from django.http import JsonResponse
 from django.template.defaulttags import register
-# Create your views here.
 
 baseApi = "http://exp-api:8000/api/v1/"
 def get_item(dictionary, key):
@@ -66,6 +65,9 @@ def signupSplash(request):
 def loginSplash(request):
     return render(request, "login.html")
 
+def register_user(request):
+    if request.method == 'POST':
+        form = UserSignupForm(request.POST)
 
 def invalidURL(request):
     obj= {}
