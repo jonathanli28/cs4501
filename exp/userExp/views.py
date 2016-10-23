@@ -42,9 +42,9 @@ def invalidURL(request):
 def login(request):
     if request.method == 'POST':
         user_id = request.POST.getlist('username')
-        passwd = request.POST.getlist('pass')
+        passwd = request.POST.getlist('password')
 
-        data = {'username':user_id,
+        data = {'username': user_id,
                 'passwd': passwd}
 
         url = modelsApi + 'auth/create/'
@@ -56,4 +56,28 @@ def login(request):
 
         urlfront = "http://exp-api:8000/api/v1/" + "login"
         req2 = urllib.request.urlopen(url, data=json.dumps(auth))
+
+def logout(request):
+    if request.method == 'POST':
+        auth = request.POST.getlist('password')
+
+        data = {'auth': auth }
+
+        url = modelsApi + 'auth/delete/'
+        req = urllib.request.urlopen(url, data=json.dumps(data))
+
+def createAccount(request):
+    if request.method == 'POST':
+        username = request.POST.getlist('username')
+        first_name = request.POST.getlist('first_name')
+        last_name = request.POST.getlist('last_name')
+        passwd = request.POST.getlist('password')
+
+        new_account = {'username': username,
+                       'first_name': first_name,
+                       'last_name': last_name,
+                       'passwd': passwd}
+
+        url = modelsApi + 'auth/create/'
+        req = urllib.request.urlopen(url, data=json.dumps(new_account))
 
