@@ -129,8 +129,19 @@ def loginSplash(request):
     response = HttpResponseRedirect(next)
     response.set_cookie("auth", authenticator)
     return response
-
-
+"""
+def login_required(f):
+    def wrap(request, *args, **kwargs):
+        # try authenticating the user
+        user = _validate(request)
+        # failed
+        if not user:
+            # redirect the user to the login page
+            return HttpResponseRedirect(reverse('login')+'?next='+current_url)
+        else:
+            return f(request, *args, **kwargs)
+    return wrap
+"""
 
 def createlisting(request):
     clisting_form = CreateListingForm()
@@ -145,6 +156,8 @@ def createlisting(request):
     f = CreateListingForm(request.POST)
     if not f.is_valid():
         return render(request, 'crlisting.html', {'clisting_form':clisting_form, 'next':next})
+
+    #make API call to check authenticator 
 
 
     name = f.cleaned_data['name']
@@ -169,7 +182,8 @@ def createlisting(request):
             "package_height": package_height,
             "shipping_weight": shipping_weight,
             "wheel_size": wheel_size,
-            "bike_description": bike_description
+            "bike_description": bike_description,
+            "auth": auth
             }
 
     url = baseApi+ 'createitem'
