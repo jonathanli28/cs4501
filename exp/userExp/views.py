@@ -116,5 +116,47 @@ def createAccount(request):
             retJSON['status'] = False
             retJSON['message'] = "User failed to be deleted"
         return JsonResponse(retJSON)
-        return ret
+
+def createItem(request):
+
+    name = request.POST['name']
+    bike_style = request.POST['bike_style']
+    brake_style = request.POST['brake_style']
+    color = request.POST['color']
+    frame_material= request.POST['frame_material']
+    speeds = request.POST['speeds']
+    package_height = request.POST['package_height']
+    shipping_weight = request.POST['shipping_weight']
+    wheel_size = request.POST['wheel_size']
+    bike_description = request.POST['bike_description']
+    average_star_rating = request.POST['average_star_rating']
+    data = {"picture": "",
+            "name": name,
+            "bike_style": bike_style,
+            "brake_style": brake_style,
+            "color": color,
+            "frame_material": frame_material,
+            "speeds": speeds,
+            "package_height": package_height,
+            "shipping_weight": shipping_weight,
+            "wheel_size": wheel_size,
+            "average_star_rating": average_star_rating,
+            "bike_description": bike_description
+            }
+
+    url = modelsApi + 'item/create/'
+    data = urllib.parse.urlencode(data)
+    data = data.encode('utf-8') # data should be bytes
+    req = urllib.request.Request(url, data)
+    response =  urllib.request.urlopen(req)
+    ret = response.read().decode('utf-8')
+    ret = json.loads(ret)
+    retJSON = {}
+    if(ret['status'] == True):
+        retJSON['status'] = True
+        retJSON['message'] = "Item created"
+    else:
+        retJSON['status'] = False
+        retJSON['message'] = "Item failed to be created"
+    return JsonResponse(retJSON)
 
