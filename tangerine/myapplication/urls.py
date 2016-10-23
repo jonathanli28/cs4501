@@ -19,11 +19,7 @@ urlpatterns = [
     url(r'^api/v1/itemreview/delete/[0-9]+/?$', views.delete_item_review),
     url(r'^api/v1/itemreview/create/?$', views.createItemReview),
 
-    url(r'^api/v1/auth/create/?$', views.create_auth),
-    url(r'^api/v1/auth/check/?$', views.check_auth),
-    url(r'^api/v1/auth/delete/?$', views.delete_auth),
 
-    
     #match all other urls
     url ('', views.invalidURL),
     #url(r'^api/items/(?P[0-9]+)/$', views.retrieve_or_modify_item_info),

@@ -6,7 +6,7 @@ from django.contrib.auth import hashers
 import os
 import hmac
 # import django settings file
-import settings
+from django.conf import settings
 
 import json
 # Create your views here.
@@ -58,11 +58,13 @@ def create_user(request):
 
     try:
         user = User.objects.get(username = request.POST['username'])
-        if(user != None)
+        if user is not None:
             retJSON = {}
             retJSON['status'] = False
             retJSON['message'] = "username already defined in database"
             return JsonResponse(retJSON)
+    except User.DoesNotExist:
+        user = None
 
     user = models.User(username=request.POST['username'],                         
         first_name=request.POST['first_name'],                             
@@ -77,6 +79,7 @@ def create_user(request):
     retJSON['message'] = "Successfully created user"
     return JsonResponse(retJSON)
     #include error handles later
+    
 def delete_user(request):
     url = request.path
     usrStr = url.split("/")[5]
@@ -111,9 +114,11 @@ def create_auth(request):
             )
         a.save()
         retJSON['status'] = True
+        retJSON['auth'] = auth
         retJSON['message'] = "Successfully created authenticator"
     else:
         retJSON['status'] = False
+        retJSON['auth'] = None
         retJSON['message'] = "Failed to create authenticator"
     return JsonResponse(retJSON)
 
@@ -156,8 +161,6 @@ def delete_auth(request):
     retJSON['status'] = True
     retJSON['message'] = "Successfully deleted auth"
     return JsonResponse(retJSON)
-
-
 
 
 #url(r'^api/items/(?P<uuid>[^/]+)/$'
@@ -304,5 +307,4 @@ def invalidURL(request):
     obj['status'] = False
     obj['message'] = "Invalid api request"
     return JsonResponse(obj)
-
 
