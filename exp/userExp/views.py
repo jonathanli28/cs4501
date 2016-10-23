@@ -80,4 +80,8 @@ def createAccount(request):
 
         url = modelsApi + 'auth/create/'
         req = urllib.request.urlopen(url, data=json.dumps(new_account))
+        ret = urllib.request.urlopen(req).read().decode('utf-8')
+
+
+        return ret
 

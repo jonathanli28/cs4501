@@ -1,4 +1,4 @@
-from django.forms import forms
+from django import forms
 from django.forms import ModelForm
 
 
@@ -8,7 +8,7 @@ class UserSignupForm(ModelForm):
     last_name = forms.CharField(widget = forms.TextInput(attrs = {'id': 'last_name'}), required=True)
     password1 = forms.CharField(widget = forms.PasswordInput(attrs={'class': 'input_text'}), label='Password')
     password2 = forms.CharField(widget = forms.PasswordInput(attrs={'class': 'input_text'}), label='Re-Enter Password')
-
+'''
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'password')
@@ -26,7 +26,7 @@ class UserSignupForm(ModelForm):
             raise forms.ValidationError("Username already exists.")
         return username
 
-    '''
+
     def clean_email(self):
         email = self.cleaned_data['email']
         if User.objects.filter(email=email.exists())
