@@ -20,3 +20,15 @@ class UserSignupForm(forms.Form):
         if password1 != password2:  # incorrectly inputted password re-enter
             raise forms.ValidationError("The passwords entered did not match.")
         return password2
+
+class CreateListingForm(forms.Form):
+    name = forms.CharField(widget = forms.TextInput(attrs = {'id': 'name'}))
+    bike_style = forms.CharField(widget = forms.TextInput(attrs = {'id': 'bike_style'}))
+    brake_style = forms.CharField(widget = forms.TextInput(attrs = {'id': 'brake_style'}))
+    color = forms.CharField(widget = forms.TextInput(attrs = {'id': 'color'}))
+    frame_material = forms.CharField(widget = forms.TextInput(attrs = {'id': 'frame_material'}))
+    speeds = forms.CharField(widget = forms.TextInput(attrs = {'id': 'speeds'}))
+    package_height = forms.CharField(widget = forms.TextInput(attrs = {'id': 'package_height'}))
+    shipping_weight = forms.CharField(widget = forms.TextInput(attrs = {'id': 'shipping_weight'}))
+    wheel_size = forms.CharField(widget = forms.TextInput(attrs = {'id': 'wheel_size'}))
+    bike_description = forms.CharField(widget = forms.TextInput(attrs = {'id': 'bike_description'}))

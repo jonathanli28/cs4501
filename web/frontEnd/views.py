@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.template.defaulttags import register
 from .forms import UserSignupForm
 from .forms import LogForm
+from .forms import CreateListingForm
 from django import forms
 
 baseApi = "http://exp-api:8000/api/v1/"
@@ -95,6 +96,11 @@ def loginSplash(request):
     if request.method == 'GET':
         return render(request, 'login.html', {'login_form':login_form, 'next':next})
 
+
+def createlisting(request):
+    clisting_form = CreateListingForm()
+    if request.method == 'GET':
+        return render(request, 'crlisting.html', {'clisting_form':clisting_form, 'next':next})
 
 def invalidURL(request):
     obj= {}
