@@ -56,7 +56,6 @@ def retrieve_or_modify_user_info(request):
         return JsonResponse(retJSON)
 
 def create_user(request):
-
     try:
         user = User.objects.get(username = request.POST['username'])
         if user is not None:
@@ -105,7 +104,9 @@ def create_auth(request):
 
     testAuth = Authenticator.objects.filter(username = request.POST['username'])
     if( testAuth.count() > 0):
-        retJSON['status'] = False
+        a = Authenticator.objects.get(username = request.POST['username'])
+        retJSON['status'] = True
+        retJSON['auth'] = a.authenticator
         retJSON['message'] = "authenticator already exists"
 
     elif(hashers.check_password(request.POST['passwd'], user.passwd)):
@@ -126,7 +127,6 @@ def create_auth(request):
         retJSON['status'] = False
         retJSON['auth'] = None
         retJSON['message'] = "Failed to create authenticator"
-        retJSON['pass'] = request.POST['passwd']
     return JsonResponse(retJSON)
 
 def check_auth(request):
@@ -149,7 +149,7 @@ def check_auth(request):
             retJSON['status'] = True
             retJSON['message'] = "Authenticator valid"
     else:
-        retJSON['status'] = True
+        retJSON['status'] = False
         retJSON['message'] = "Authenticator invalid(mismatch)"
     retJSON['auth'] = a.authenticator
     return JsonResponse(retJSON)

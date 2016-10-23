@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import urllib.request, json
 from django.http import HttpResponseNotFound
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.template.defaulttags import register
 from .forms import UserSignupForm
 from .forms import LogForm
@@ -100,7 +100,7 @@ def signupSplash(request):
 
 def loginSplash(request):
     login_form = LogForm
-    next = reverse('homePageSplash')
+    next = reverse('homePageSplash') or request.GET.get('next')
     if request.method == 'GET':
         return render(request, 'login.html', {'login_form':login_form, 'next':next})
     f = LogForm(request.POST)
@@ -121,10 +121,9 @@ def loginSplash(request):
     ret = response.read().decode('utf-8')
     resp = json.loads(ret)
 
-
     if not resp or not resp['status']:
         # couldn't log them in, send them back to login page with error
-        return render(request, 'login.html', {'login_form':login_form, 'next':next, 'login_message':"Login failed. Try again"})
+        return render(request, 'login.html', {'login_form':login_form, 'next':next, 'login_message': 'login failed'})
     # logged them in. set their login cookie and redirect to back to wherever they came from
     authenticator = resp['auth']
     response = HttpResponseRedirect(next)
@@ -135,8 +134,64 @@ def loginSplash(request):
 
 def createlisting(request):
     clisting_form = CreateListingForm()
+    next = reverse('homePageSplash')
+    auth = request.COOKIES.get('auth')
+    if not auth:
+      # handle user not logged in while trying to create a listing
+      return HttpResponseRedirect(reverse("login") + "?next=" + reverse("crlisting"))
     if request.method == 'GET':
         return render(request, 'crlisting.html', {'clisting_form':clisting_form, 'next':next})
+
+    f = CreateListingForm(request.POST)
+    if not f.is_valid():
+        return render(request, 'crlisting.html', {'clisting_form':clisting_form, 'next':next})
+
+    username = f.cleaned_data['username']
+    passwd = f.cleaned_data['passwd'] # need to check this
+    
+    name = f.cleaned_data('name')
+    bike_style = f.cleaned_data('bike_style')
+    brake_style = f.cleaned_data('brake_style')
+    color = f.cleaned_data('color')
+    frame_material = f.cleaned_data('frame_material')
+    speeds = f.cleaned_data('speeds')
+    package_height = f.cleaned_data('package_height')
+    shipping_weight = f.cleaned_data('shipping_weight')
+    wheel_size = f.cleaned_data('wheel_size')
+    average_star_rating = f.cleaned_data('average_star_rating')
+    bike_description = f.cleaned_data('bike_description')
+
+
+    data = {"picture": "",
+            "name": name,
+            "bike_style": bike_style,
+            "brake_style": brake_style,
+            "color": color,
+            "frame_material": frame_material,
+            "speeds": speeds,
+            "package_height": package_height,
+            "shipping_weight": shipping_weight,
+            "wheel_size": wheel_size,
+            "average_star_rating": average_star_rating,
+            "bike_description": bike_description
+            }
+
+    url = baseApi+ 'createitem'
+    data = urllib.parse.urlencode(data)
+    data = data.encode('utf-8') # data should be bytes
+    req = urllib.request.Request(url, data)
+    response =  urllib.request.urlopen(req)
+    ret = response.read().decode('utf-8')
+    resp = json.loads(ret)
+
+
+    if resp and not resp['status']:
+        # exp service reports invalid authenticator -- treat like user not logged in
+        return HttpResponseRedirect(reverse("login") + "?next=" + reverse("create_listing"))
+     
+    return render("listing_success.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item successfully created"})
+
+
 
 def invalidURL(request):
     obj= {}

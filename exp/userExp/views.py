@@ -90,10 +90,10 @@ def login(request):
         if(ret['status'] == True):
             authvalue['auth'] = ret['auth']
             authvalue['status'] = True
-            authvalue['message'] = "Authenticator successfully obtained"
+            authvalue['message'] = ret['message']
         else:
             authvalue['status'] = False
-            authvalue['message'] = "Authenticator failed to be obtained"
+            authvalue['message'] = ret['message']
         return JsonResponse(authvalue)
 
     

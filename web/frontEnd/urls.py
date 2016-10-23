@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^signup', views.signupSplash, name='signupSplash'),
     url(r'^login', views.loginSplash, name='loginSplash'),
    # url(r'^blist', views.blistSplash, name='blistSplash'),
-   # url(r'^crlisting', views.createlisting, name='crlisting'),
+    url(r'^crlisting', views.createlisting, name='crlisting'),
    # url(r'^signuprejected', views.signuprejected, name='signuprejected'),
     url('', views.invalidURL)
     
