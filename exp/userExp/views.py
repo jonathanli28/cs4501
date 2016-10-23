@@ -39,6 +39,32 @@ def invalidURL(request):
     obj['message'] = "Invalid api request"
     return JsonResponse(obj)
 
+
+def createAccount(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        passwd = request.POST['passwd']
+        email = request.POST['email']
+
+        data = {'username': username,
+               'first_name': first_name,
+               'last_name': last_name,
+               'passwd': passwd,
+               'email': email}
+
+
+        url = modelsApi + 'user/create/'
+    
+        data = urllib.parse.urlencode(data)
+        data = data.encode('utf-8') # data should be bytes
+        req = urllib.request.Request(url, data)
+        response =  urllib.request.urlopen(req)
+        ret = response.read().decode('utf-8')
+        ret = json.loads(ret)
+        return JsonResponse(ret)
+        
 def login(request):
     if request.method == 'POST':
         user_id = request.POST['username']
@@ -87,35 +113,6 @@ def logout(request):
             retJSON['message'] = "Authenticator failed to be deleted"
         return JsonResponse(retJSON)
 
-def createAccount(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        passwd = request.POST['passwd']
-        email = request.POST['email']
-
-        data = {'username': username,
-               'first_name': first_name,
-               'last_name': last_name,
-               'passwd': passwd,
-               'email': email}
-
-        url = modelsApi + 'user/create/'
-        data = urllib.parse.urlencode(data)
-        data = data.encode('utf-8') # data should be bytes
-        req = urllib.request.Request(url, data)
-        response =  urllib.request.urlopen(req)
-        ret = response.read().decode('utf-8')
-        ret = json.loads(ret)
-        retJSON = {}
-        if(ret['status'] == True):
-            retJSON['status'] = True
-            retJSON['message'] = "User created"
-        else:
-            retJSON['status'] = False
-            retJSON['message'] = "User failed to be deleted"
-        return JsonResponse(retJSON)
 
 def createItem(request):
 
@@ -159,4 +156,3 @@ def createItem(request):
         retJSON['status'] = False
         retJSON['message'] = "Item failed to be created"
     return JsonResponse(retJSON)
-

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import urllib.request, json
 from django.http import HttpResponseNotFound
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.template.defaulttags import register
 from .forms import UserSignupForm
 from .forms import LogForm
@@ -67,28 +67,45 @@ def blistSplash(request):
 def signuprejected(request):
     return render(request, "signuprejected.html")
 
-'''
-def signupSplash(request):
-    if request.method == "POST":
-        form = UserSignupForm(request.POST)
-        if form.is_valid():
-            url = "http://models-api:8000/api/v1/" + 'createaccount'
-            data = {'username': form.username,
-                    'first_name': form.first_name,
-                    'last_name': form.last_name,
-                    'passwd': form.password1}
-            new_user = urllib.request.urlopen(url, data=json.dumps(data))
-            if new_user.getlist('status') is False:
-                render(request, "signuprejected.html")
-    else:
-        form = UserSignupForm()
-    return render(request, "signup.html", {'form': form})
-'''
 
 def signupSplash(request):
-    signup_form = UserSignupForm()
-    if request.method == 'GET':
-        return render(request, 'signup.html', {'signup_form':signup_form, 'next':next})
+    if request.method == "POST":
+        # return HttpResponse(request.POST)
+        form = UserSignupForm(request.POST)
+        if form.is_valid():
+            
+            data = {'username': form.cleaned_data['username'],
+                    'first_name': form.cleaned_data['first_name'],
+                    'last_name': form.cleaned_data['last_name'],
+                    'passwd': form.cleaned_data['password1'],
+                    'email': 'monkey@virginia.edu'}
+
+            url = baseApi+ 'createaccount'
+          
+            data = urllib.parse.urlencode(data)
+           
+            data = data.encode('utf-8') # data should be bytes
+
+            req = urllib.request.Request(url, data)
+            response =  urllib.request.urlopen(req)
+           
+            ret = response.read().decode('utf-8')
+            new_user = json.loads(ret)
+            return JsonResponse(new_user)
+            if new_user['status'] is False:
+                return render(request, "signuprejected.html")
+            else:
+                return render(request, "signupsuccess.html")
+
+    else:
+        form = UserSignupForm()
+    return render(request, "signup.html", {'signup_form': form})
+
+
+# def signupSplash(request):
+#     signup_form = UserSignupForm()
+#     if request.method == 'GET':
+#         return render(request, 'signup.html', {'signup_form':signup_form, 'next':next})
 
 
 def loginSplash(request):

@@ -3,14 +3,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CycleOps Sign Up</title>
+    <title>Sign Up Successful</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -22,12 +21,9 @@
             height: auto;
         }
     </style>
-
 </head>
-
-
 <body>
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -59,21 +55,13 @@
         <!-- /.container -->
     </nav>
 
+
     <div class="container">
+
         <br>
         <img src="{% static 'pics/cycleops_logo.png' %}" alt="">
-        {% block content %}
-            <div class="signup-form">
-                <h2>Sign Up</h2>
-                    <form class="form-signin" action="/signup" method="post">
-                        {% csrf_token %}
-                        {{ signup_form }}
-                        <button type="submit" value="Submit">Sign Up</button><br>
-                    </form>
-            </div>
-
-        {% endblock %}
-
+        <p>Your Signup Request has been Rejected. This username is already in use.</p>
+        <hr>
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -82,6 +70,7 @@
                 </div>
             </div>
         </footer>
+
     </div>
 
 </body>
