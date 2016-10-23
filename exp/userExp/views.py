@@ -41,49 +41,80 @@ def invalidURL(request):
 
 def login(request):
     if request.method == 'POST':
-        user_id = request.POST.getlist('username')
-        passwd = request.POST.getlist('password')
+        user_id = request.POST['username']
+        passwd = request.POST['passwd']
 
         data = {'username': user_id,
                 'passwd': passwd}
-
+    
         url = modelsApi + 'auth/create/'
-        req = urllib.request.urlopen(url, data=json.dumps(data))
-        ret = urllib.request.urlopen(req).read().decode('utf-8')
-        auth = ret.getlist('auth')
+        data = urllib.parse.urlencode(data)
+        data = data.encode('utf-8') # data should be bytes
+        req = urllib.request.Request(url, data)
+        response =  urllib.request.urlopen(req)
+        ret = response.read().decode('utf-8')
+        ret = json.loads(ret)
+        authvalue = {}
+        if(ret['status'] == True):
+            authvalue['auth'] = ret['auth']
+            authvalue['status'] = True
+            authvalue['message'] = "Authenticator successfully obtained"
+        else:
+            authvalue['status'] = False
+            authvalue['message'] = "Authenticator failed to be obtained"
+        return JsonResponse(authvalue)
 
-        authvalue = {'auth': auth}
-
-        urlfront = "http://exp-api:8000/api/v1/" + "login"
-        req2 = urllib.request.urlopen(urlfront, data=json.dumps(authvalue))
-
+    
 def logout(request):
     if request.method == 'POST':
-        auth = request.POST.getlist('password')
+        auth = request.POST['auth']
 
         data = {'auth': auth }
 
         url = modelsApi + 'auth/delete/'
-        req = urllib.request.urlopen(url, data=json.dumps(data))
+        data = urllib.parse.urlencode(data)
+        data = data.encode('utf-8') # data should be bytes
+        req = urllib.request.Request(url, data)
+        response =  urllib.request.urlopen(req)
+        ret = response.read().decode('utf-8')
+        ret = json.loads(ret)
+        retJSON = {}
+        if(ret['status'] == True):
+            retJSON['status'] = True
+            retJSON['message'] = "Authenticator deleted"
+        else:
+            retJSON['status'] = False
+            retJSON['message'] = "Authenticator failed to be deleted"
+        return JsonResponse(retJSON)
 
 def createAccount(request):
     if request.method == 'POST':
-        username = request.POST.getlist('username')
-        first_name = request.POST.getlist('first_name')
-        last_name = request.POST.getlist('last_name')
-        passwd = request.POST.getlist('password')
-        email = request.POST.getlist('email')
+        username = request.POST['username']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        passwd = request.POST['passwd']
+        email = request.POST['email']
 
-        new_account = {'username': username,
-                       'first_name': first_name,
-                       'last_name': last_name,
-                       'passwd': passwd,
-                       'email': email}
+        data = {'username': username,
+               'first_name': first_name,
+               'last_name': last_name,
+               'passwd': passwd,
+               'email': email}
 
-        url = modelsApi + 'auth/create/'
-        req = urllib.request.urlopen(url, data=json.dumps(new_account))
-        ret = urllib.request.urlopen(req).read().decode('utf-8')
-
-
+        url = modelsApi + 'user/create/'
+        data = urllib.parse.urlencode(data)
+        data = data.encode('utf-8') # data should be bytes
+        req = urllib.request.Request(url, data)
+        response =  urllib.request.urlopen(req)
+        ret = response.read().decode('utf-8')
+        ret = json.loads(ret)
+        retJSON = {}
+        if(ret['status'] == True):
+            retJSON['status'] = True
+            retJSON['message'] = "User created"
+        else:
+            retJSON['status'] = False
+            retJSON['message'] = "User failed to be deleted"
+        return JsonResponse(retJSON)
         return ret
 

@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^api/v1/auth/create/?$', views.create_auth),
     url(r'^api/v1/auth/check/?$', views.check_auth),
     url(r'^api/v1/auth/delete/?$', views.delete_auth),
-
+    url(r'^api/v1/auth/deleteuser/?$', views.delete_auth_username),
 
     #match all other urls
     url ('', views.invalidURL),

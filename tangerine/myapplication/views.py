@@ -126,6 +126,7 @@ def create_auth(request):
         retJSON['status'] = False
         retJSON['auth'] = None
         retJSON['message'] = "Failed to create authenticator"
+        retJSON['pass'] = request.POST['passwd']
     return JsonResponse(retJSON)
 
 def check_auth(request):
@@ -157,6 +158,22 @@ def delete_auth(request):
     retJSON = {}
     try:
         a = Authenticator.objects.get(authenticator = request.POST['auth'])
+    except Authenticator.DoesNotExist:
+        a = None
+    if(a == None):
+        retJSON['status'] = False
+        retJSON['message'] = "There is no Authenticator in db"
+        return JsonResponse(retJSON)
+    a.delete()
+    retJSON = {}
+    retJSON['status'] = True
+    retJSON['message'] = "Successfully deleted auth"
+    return JsonResponse(retJSON)
+
+def delete_auth_username(request):
+    retJSON = {}
+    try:
+        a = Authenticator.objects.get(username = request.POST['username'])
     except Authenticator.DoesNotExist:
         a = None
     if(a == None):
