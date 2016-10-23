@@ -187,6 +187,22 @@ def createlisting(request):
      
     return render("listing_success.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item successfully created"})
 
+def logout(request):
+    url = baseApi + "api/v1/logout"
+
+    auth = request.COOKIES.get('auth')
+    request.delete_cookie(key = auth)
+    authpass = {'auth': auth}
+
+    data = urllib.parse.urlencode(authpass)
+    req = urllib.request.Request(url, data)
+
+    response =  urllib.request.urlopen(req)
+    ret = response.read().decode('utf-8')
+    resp = json.loads(ret)
+
+    return resp
+
 
 
 def invalidURL(request):
