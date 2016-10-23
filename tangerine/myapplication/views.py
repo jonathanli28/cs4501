@@ -3,11 +3,12 @@ from .models import User, Authenticator, BicycleItem, ItemReview
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.contrib.auth import hashers
+import datetime
 import os
 import hmac
 # import django settings file
 from django.conf import settings
-
+from django.utils import timezone
 import json
 # Create your views here.
 
@@ -66,7 +67,7 @@ def create_user(request):
     except User.DoesNotExist:
         user = None
 
-    user = models.User(username=request.POST['username'],                         
+    user = User(username=request.POST['username'],                         
         first_name=request.POST['first_name'],                             
         last_name=request.POST['last_name'],                             
         passwd=hashers.make_password(request.POST['passwd']),                                         \
@@ -101,14 +102,19 @@ def create_auth(request):
         userJSON['message'] = "There is no user specified"
         return JsonResponse(userJSON)
     retJSON = {}
-    temp_passwd = hashers.make_password(request.POST['passwd'])
-    if(user.passwd == temp_passwd):
+
+    testAuth = Authenticator.objects.filter(username = request.POST['username'])
+    if( testAuth.count() > 0):
+        retJSON['status'] = False
+        retJSON['message'] = "authenticator already exists"
+
+    elif(hashers.check_password(request.POST['passwd'], user.passwd)):
 
         #creating the authenticator
         auth= hmac.new(key = settings.SECRET_KEY.encode('utf-8'), 
             msg = os.urandom(32), digestmod = 'sha256').hexdigest()
 
-        a = models.Authenticator(user_id=request.POST['user_id'],                                                     
+        a = Authenticator(username=request.POST['username'],                                                     
             authenticator= auth,                                        
             date_created=datetime.datetime.now()                        
             )
@@ -134,7 +140,7 @@ def check_auth(request):
         return JsonResponse(retJSON)
     
     if(a.username == request.POST['username']):
-        timeDelta = (datetime.datetime.now() - a.date_created).days * 24 * 60
+        timeDelta = (timezone.now()- a.date_created).days * 24 * 60
         if(timeDelta > 60 * 2): #set authenticator time to be two hours 
             retJSON['status'] = False
             retJSON['message'] = "Authenticator expired"
@@ -144,6 +150,7 @@ def check_auth(request):
     else:
         retJSON['status'] = True
         retJSON['message'] = "Authenticator invalid(mismatch)"
+    retJSON['auth'] = a.authenticator
     return JsonResponse(retJSON)
 
 def delete_auth(request):

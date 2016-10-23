@@ -7,6 +7,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=360)
     last_name = models.CharField(max_length=360)
     passwd = models.CharField(max_length=360)
+    email = models.CharField(max_length=360)
     date_created = models.DateTimeField(auto_now_add=True)
 
 class Authenticator(models.Model):
