@@ -4,8 +4,11 @@ from django.http import HttpResponseNotFound
 from django.http import JsonResponse
 from django.template.defaulttags import register
 from .forms import UserSignupForm
+from .forms import LogForm
+from django import forms
 
 baseApi = "http://exp-api:8000/api/v1/"
+
 def get_item(dictionary, key):
     return dictionary.get(key)
 
@@ -60,6 +63,7 @@ def aboutSplash(request):
 def blistSplash(request):
     return render(request, "blist.html")
 
+'''
 def signupSplash(request):
     if request.method == "POST":
         form = UserSignupForm(request.POST)
@@ -68,17 +72,26 @@ def signupSplash(request):
             data = {'username': form.username,
                     'first_name': form.first_name,
                     'last_name': form.last_name,
-                    'passwd': form.password1,
-                    'email': form.email}
+                    'passwd': form.password1}
             new_user = urllib.request.urlopen(url, data=json.dumps(data))
             if new_user.getlist('status') is False:
                 render(request, "signuprejected.html")
     else:
         form = UserSignupForm()
     return render(request, "signup.html", {'form': form})
+'''
+
+def signupSplash(request):
+    signup_form = UserSignupForm()
+    if request.method == 'GET':
+        return render(request, 'signup.html', {'signup_form':signup_form, 'next':next})
+
 
 def loginSplash(request):
-    return render(request, "login.html")
+    login_form = LogForm()
+    if request.method == 'GET':
+        return render(request, 'login.html', {'login_form':login_form, 'next':next})
+
 
 def invalidURL(request):
     obj= {}

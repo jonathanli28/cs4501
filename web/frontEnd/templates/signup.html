@@ -60,11 +60,15 @@
     </nav>
 
     {% block content %}
-        <form method ="post" action="">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Create New User Account" />
-        </form>
+        <div class="signup-form">
+            <h2>Login</h2>
+                <form class="form-signin" action="" method="post">
+                    {% csrf_token %}
+                    {{ signup_form }}
+                    <button type="submit" value="Submit">Login</button><br>
+                </form>
+        </div>
+
     {% endblock %}
 
 </body>
