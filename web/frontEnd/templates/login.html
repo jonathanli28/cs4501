@@ -62,15 +62,16 @@
         <img src="{% static 'pics/cycleops_logo.png' %}" alt="">
 
         {% block content %}
+        
             <div class="login-form">
                 <h2>Login</h2>
-                    <form class="form-signin" action="" method="post">
+                    <form class="form-signin" action="/login" method="post">
                         {% csrf_token %}
                         {{ login_form }}
                         <button type="submit" value="Submit">Login</button><br>
                     </form>
             </div>
-
+            {{login_message}}
         {% endblock %}
 
         <footer>

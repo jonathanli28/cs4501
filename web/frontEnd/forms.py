@@ -2,9 +2,11 @@ from django import forms
 
 
 class LogForm(forms.Form):
-    username = forms.CharField(label="Username")
-    password = forms.CharField(widget=forms.PasswordInput, label="Password")
-
+    #username = forms.CharField(label="Username")
+    #password = forms.CharField(widget=forms.PasswordInput, label="Password")
+    username = forms.CharField(widget = forms.TextInput(attrs = {'id': 'username'}), required=True)
+    passwd = forms.CharField(widget = forms.PasswordInput(attrs={'id': 'passwd'}), label='Password')
+    
 class UserSignupForm(forms.Form):
     username = forms.CharField(widget = forms.TextInput(attrs = {'id': 'username'}), required=True)
     first_name = forms.CharField(widget = forms.TextInput(attrs = {'id': 'first_name'}), required=True)

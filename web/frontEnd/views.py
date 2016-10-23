@@ -7,6 +7,7 @@ from .forms import UserSignupForm
 from .forms import LogForm
 from .forms import CreateListingForm
 from django import forms
+from django.core.urlresolvers import reverse
 
 baseApi = "http://exp-api:8000/api/v1/"
 
@@ -60,7 +61,7 @@ def itempageSplash(request, pk):
 
 def aboutSplash(request):
     return render(request, "about.html")
-
+#requests.COOKIES.get(auth)
 def blistSplash(request):
     return render(request, "blist.html")
 
@@ -81,14 +82,10 @@ def signupSplash(request):
                     'email': 'monkey@virginia.edu'}
 
             url = baseApi+ 'createaccount'
-          
             data = urllib.parse.urlencode(data)
-           
             data = data.encode('utf-8') # data should be bytes
-
             req = urllib.request.Request(url, data)
             response =  urllib.request.urlopen(req)
-           
             ret = response.read().decode('utf-8')
             new_user = json.loads(ret)
             if new_user['status'] is False:
@@ -101,16 +98,39 @@ def signupSplash(request):
     return render(request, "signup.html", {'signup_form': form})
 
 
-# def signupSplash(request):
-#     signup_form = UserSignupForm()
-#     if request.method == 'GET':
-#         return render(request, 'signup.html', {'signup_form':signup_form, 'next':next})
-
-
 def loginSplash(request):
-    login_form = LogForm()
+    login_form = LogForm
+    next = reverse('homePageSplash')
     if request.method == 'GET':
         return render(request, 'login.html', {'login_form':login_form, 'next':next})
+    f = LogForm(request.POST)
+    if not f.is_valid():
+        # bogus form post, send them back to login page and show them an error
+        return render(request, 'login.html', {'login_form':login_form, 'next':next})
+    username = f.cleaned_data['username']
+    passwd = f.cleaned_data['passwd'] # need to check this
+    
+    data = {'username': username,
+            'passwd': passwd}
+
+    url = baseApi+ 'login'
+    data = urllib.parse.urlencode(data)
+    data = data.encode('utf-8') # data should be bytes
+    req = urllib.request.Request(url, data)
+    response =  urllib.request.urlopen(req)
+    ret = response.read().decode('utf-8')
+    resp = json.loads(ret)
+
+
+    if not resp or not resp['status']:
+        # couldn't log them in, send them back to login page with error
+        return render(request, 'login.html', {'login_form':login_form, 'next':next, 'login_message':"Login failed. Try again"})
+    # logged them in. set their login cookie and redirect to back to wherever they came from
+    authenticator = resp['auth']
+    response = HttpResponseRedirect(next)
+    response.set_cookie("auth", authenticator)
+    return response
+
 
 
 def createlisting(request):
