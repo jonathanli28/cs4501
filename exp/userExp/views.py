@@ -39,3 +39,21 @@ def invalidURL(request):
     obj['message'] = "Invalid api request"
     return JsonResponse(obj)
 
+def login(request):
+    if request.method == 'POST':
+        user_id = request.POST.getlist('username')
+        passwd = request.POST.getlist('pass')
+
+        data = {'username':user_id,
+                'passwd': passwd}
+
+        url = modelsApi + 'auth/create/'
+        req = urllib.request.urlopen(url, data=json.dumps(data))
+        ret = urllib.request.urlopen(req).read().decode('utf-8')
+        auth = ret.getlist('auth')
+
+        authvalue = {'auth': auth}
+
+        urlfront = "http://exp-api:8000/api/v1/" + "login"
+        req2 = urllib.request.urlopen(url, data=json.dumps(auth))
+
