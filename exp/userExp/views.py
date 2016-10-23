@@ -56,14 +56,20 @@ def createAccount(request):
 
 
         url = modelsApi + 'user/create/'
-    
         data = urllib.parse.urlencode(data)
         data = data.encode('utf-8') # data should be bytes
         req = urllib.request.Request(url, data)
         response =  urllib.request.urlopen(req)
         ret = response.read().decode('utf-8')
         ret = json.loads(ret)
-        return JsonResponse(ret)
+        retJSON = {}  
+        if(ret['status'] == True):
+            retJSON['status'] = True
+            retJSON['message'] = "User created"
+        else:
+            retJSON['status'] = False
+            retJSON['message'] = "User failed to be created"
+        return JsonResponse(retJSON)
         
 def login(request):
     if request.method == 'POST':

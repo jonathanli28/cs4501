@@ -91,7 +91,6 @@ def signupSplash(request):
            
             ret = response.read().decode('utf-8')
             new_user = json.loads(ret)
-            return JsonResponse(new_user)
             if new_user['status'] is False:
                 return render(request, "signuprejected.html")
             else:
