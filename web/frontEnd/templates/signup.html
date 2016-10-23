@@ -59,11 +59,13 @@
         <!-- /.container -->
     </nav>
 
-    <form method ="post" action="">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Create New User Account" />
-    </form>
+    {% block content %}
+        <form method ="post" action="">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Create New User Account" />
+        </form>
+    {% endblock %}
 
 </body>
 </html>
