@@ -3,7 +3,7 @@ import urllib.request, json
 from django.http import HttpResponseNotFound
 from django.http import JsonResponse
 from django.template.defaulttags import register
-# Create your views here.
+from forms import UserSignupForm
 
 baseApi = "http://exp-api:8000/api/v1/"
 def get_item(dictionary, key):
@@ -61,11 +61,18 @@ def blistSplash(request):
     return render(request, "blist.html")
 
 def signupSplash(request):
-    return render(request, "signup.html")
+    if request.method == "POST":
+        form = UserSignupForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            #login(new_user)  needs implementation
+            #return HttpResponseRedirect('index.html')
+    else:
+        form = UserSignupForm()
+    return render(request, "signup.html", {'form': form})
 
 def loginSplash(request):
     return render(request, "login.html")
-
 
 def invalidURL(request):
     obj= {}
