@@ -55,7 +55,7 @@ def login(request):
         authvalue = {'auth': auth}
 
         urlfront = "http://exp-api:8000/api/v1/" + "login"
-        req2 = urllib.request.urlopen(url, data=json.dumps(auth))
+        req2 = urllib.request.urlopen(urlfront, data=json.dumps(authvalue))
 
 def logout(request):
     if request.method == 'POST':
@@ -72,11 +72,13 @@ def createAccount(request):
         first_name = request.POST.getlist('first_name')
         last_name = request.POST.getlist('last_name')
         passwd = request.POST.getlist('password')
+        email = request.POST.getlist('email')
 
         new_account = {'username': username,
                        'first_name': first_name,
                        'last_name': last_name,
-                       'passwd': passwd}
+                       'passwd': passwd,
+                       'email': email}
 
         url = modelsApi + 'auth/create/'
         req = urllib.request.urlopen(url, data=json.dumps(new_account))

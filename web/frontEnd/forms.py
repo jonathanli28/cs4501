@@ -6,6 +6,7 @@ class UserSignupForm(ModelForm):
     username = forms.CharField(widget = forms.TextInput(attrs = {'id': 'username'}), required=True)
     first_name = forms.CharField(widget = forms.TextInput(attrs = {'id': 'first_name'}), required=True)
     last_name = forms.CharField(widget = forms.TextInput(attrs = {'id': 'last_name'}), required=True)
+    email = forms.CharField(widget = forms.TextInput(attrs = {'id': 'email'}), required=True)
     password1 = forms.CharField(widget = forms.PasswordInput(attrs={'class': 'input_text'}), label='Password')
     password2 = forms.CharField(widget = forms.PasswordInput(attrs={'class': 'input_text'}), label='Re-Enter Password')
 '''
