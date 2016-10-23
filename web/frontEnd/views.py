@@ -3,7 +3,7 @@ import urllib.request, json
 from django.http import HttpResponseNotFound
 from django.http import JsonResponse
 from django.template.defaulttags import register
-from forms import UserSignupForm
+from .forms import UserSignupForm
 
 baseApi = "http://exp-api:8000/api/v1/"
 def get_item(dictionary, key):
@@ -64,9 +64,14 @@ def signupSplash(request):
     if request.method == "POST":
         form = UserSignupForm(request.POST)
         if form.is_valid():
-            new_user = User.objects.create_user(**form.cleaned_data)
-            #login(new_user)  needs implementation
-            #return HttpResponseRedirect('index.html')
+            url = "http://models-api:8000/api/v1/" + 'createaccount'
+            data = {'username': form.username,
+                    'first_name': form.first_name,
+                    'last_name': form.last_name,
+                    'passwd': form.password1}
+            new_user = urllib.request.urlopen(url, data=json.dumps(data))
+            if new_user.getlist('status') is False:
+                render(request, "signuprejected.html")
     else:
         form = UserSignupForm()
     return render(request, "signup.html", {'form': form})
