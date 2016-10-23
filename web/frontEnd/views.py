@@ -63,6 +63,9 @@ def aboutSplash(request):
 def blistSplash(request):
     return render(request, "blist.html")
 
+def signuprejected(request):
+    return render(request, "signuprejected.html")
+
 '''
 def signupSplash(request):
     if request.method == "POST":

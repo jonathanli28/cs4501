@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>CycleOps Login</title>
+    <title>Sign Up Rejected</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -23,8 +23,7 @@
     </style>
 </head>
 <body>
-
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -56,23 +55,14 @@
         <!-- /.container -->
     </nav>
 
+
     <div class="container">
 
         <br>
         <img src="{% static 'pics/cycleops_logo.png' %}" alt="">
-
-        {% block content %}
-            <div class="login-form">
-                <h2>Login</h2>
-                    <form class="form-signin" action="" method="post">
-                        {% csrf_token %}
-                        {{ login_form }}
-                        <button type="submit" value="Submit">Login</button><br>
-                    </form>
-            </div>
-
-        {% endblock %}
-
+        <p>Your Signup Request has been Rejected. This username is already in use.</p>
+        <hr>
+        <!-- Footer -->
         <footer>
             <div class="row">
                 <div class="col-lg-12">
@@ -80,6 +70,7 @@
                 </div>
             </div>
         </footer>
+
     </div>
 
 </body>
