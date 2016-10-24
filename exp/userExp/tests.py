@@ -26,7 +26,7 @@ class GetItemTestCase(TestCase):
      self.assertContains(response, 'pk')
      self.assertContains(response, 'name')
      self.assertContains(response, 'bike_description')
-     self.assertContains(response, 'average_star_rating')
+     self.assertContains(response, 'speeds')
 
   def tearDown(self):  #tearDown method is called after each test
      pass  
@@ -70,7 +70,7 @@ class GetItemRatingTestCase(TestCase):
      jsonResponse = json.loads(str(response.content, encoding='utf8'))
      #test for the most essential fields of the bike model
      self.assertEquals(jsonResponse["status"], True)  
-     self.assertContains(response, 'average_star_rating')
+     self.assertContains(response, 'speeds')
 
   def tearDown(self):  #tearDown method is called after each test
      pass  
@@ -113,5 +113,95 @@ class GetHomePageTestCase(TestCase):
         self.assertContains(response, 'bike1')
         self.assertContains(response, 'bike2')
         self.assertContains(response, 'bike3')
+    def tearDown(self):  #tearDown method is called after each test
+        pass
+
+class GetLoginTestCase(TestCase):
+    def setUp(self):     #setUp method is called before each test in this class
+        pass              #nothing to set uunpit
+
+    def test_success_response(self):
+        response = self.client.get(reverse('loginPage'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_success_loginCapability(self):
+
+        c = Client()
+        response = c.post(reverse('loginPage'), {'username': 'ianian', 'passwd': 'hello'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'auth')
+
+        d = Client()
+        response = d.post(reverse('logoutPage'), {'auth': response['auth']})
+        self.assertEqual(response.status_code, 200)
+        self.assertEquals(response['status'], True)
+
+
+    def tearDown(self):  #tearDown method is called after each test
+        pass
+
+class GetCreateItemTestCase(TestCase):
+    def setUp(self):     #setUp method is called before each test in this class
+        pass              #nothing to set uunpit
+
+    def test_success_response(self):
+        response = self.client.get(reverse('createitemPage'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_success_CreateCapability(self):
+        c = Client()
+        response = c.post(reverse('createitemPage'), {"picture": "",
+                "name": 'big bike',
+                "bike_style": 'pretty',
+                "brake_style": 'great brakes',
+                "color": 'green',
+                "frame_material": 'kryptonite',
+                "speeds": 'high speed',
+                "package_height": '20 ft',
+                "shipping_weight": '20 pounds',
+                "wheel_size": '10 inches',
+                "bike_description": 'super awesome bike bro'
+                })
+        self.assertEqual(response.status_code, 200)
+        self.assertEquals(response['status'], True)
+
+    def tearDown(self):  #tearDown method is called after each test
+        pass
+
+class GetCreateValidAccountTestCase(TestCase):
+    def setUp(self):     #setUp method is called before each test in this class
+        pass              #nothing to set uunpit
+
+    def test_success_response(self):
+        response = self.client.get(reverse('createaccountPage'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_success_createAccount(self):
+        c = Client()
+        response = c.post(reverse('loginPage'), {'username': 'super_unique', 'passwd': 'super_unique_pass'})
+        self.assertEqual(response.status_code, 200)
+        jsonResponse = json.loads(str(response.content, encoding='utf8'))
+        self.assertEquals(jsonResponse['status'], True)
+
+
+    def tearDown(self):  #tearDown method is called after each test
+        pass
+
+class GetCreateInvalidAccountTestCase(TestCase):
+    def setUp(self):     #setUp method is called before each test in this class
+        pass              #nothing to set uunpit
+
+    def test_success_response(self):
+        response = self.client.get(reverse('createaccountPage'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_success_createFailAccount(self):
+        c = Client()
+        response = c.post(reverse('loginPage'), {'username': 'super_unique', 'passwd': 'super_unique_pass'})
+        self.assertEqual(response.status_code, 200)
+        jsonResponse = json.loads(str(response.content, encoding='utf8'))
+        self.assertEquals(jsonResponse['status'], False)
+
+
     def tearDown(self):  #tearDown method is called after each test
         pass
