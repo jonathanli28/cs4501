@@ -131,16 +131,21 @@ def create_auth(request):
 
 def check_auth(request):
     retJSON = {}
+    retJSON['status'] = False
+    retJSON['message'] = "Authenticator invalid(mismatch)"
+    retJSON['auth'] = request.POST['auth']
+    a = None
     try:
         a = Authenticator.objects.get(authenticator = request.POST['auth'])
     except Authenticator.DoesNotExist:
         a = None
+    
     if(a == None):
         retJSON['status'] = False
         retJSON['message'] = "There is no Authenticator in db"
         return JsonResponse(retJSON)
     
-    if(a.username == request.POST['username']):
+    else:
         timeDelta = (timezone.now()- a.date_created).days * 24 * 60
         if(timeDelta > 60 * 2): #set authenticator time to be two hours 
             retJSON['status'] = False
@@ -148,9 +153,6 @@ def check_auth(request):
         else:
             retJSON['status'] = True
             retJSON['message'] = "Authenticator valid"
-    else:
-        retJSON['status'] = False
-        retJSON['message'] = "Authenticator invalid(mismatch)"
     retJSON['auth'] = a.authenticator
     return JsonResponse(retJSON)
 

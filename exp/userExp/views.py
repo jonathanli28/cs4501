@@ -123,9 +123,8 @@ def logout(request):
 #make two calls to model layer, one for auth and one for item creation
 def createItem(request):
     retJSON = {}
-
     auth = request.POST['auth']
-
+  
     name = request.POST['name']
     bike_style = request.POST['bike_style']
     brake_style = request.POST['brake_style']
@@ -136,16 +135,19 @@ def createItem(request):
     shipping_weight = request.POST['shipping_weight']
     wheel_size = request.POST['wheel_size']
     bike_description = request.POST['bike_description']
-    average_star_rating = request.POST['average_star_rating']
 
     data = {'auth':auth}
+
     url = modelsApi + 'auth/check/'
     data = urllib.parse.urlencode(data)
     data = data.encode('utf-8') # data should be bytes
+
     req = urllib.request.Request(url, data)
     response =  urllib.request.urlopen(req)
+    
     ret = response.read().decode('utf-8')
     ret = json.loads(ret)
+    
     #if Authentication is successful, then stuff everything in and send
     #to create item call in models layer
     if(ret['status'] == True):
@@ -159,10 +161,9 @@ def createItem(request):
                 "package_height": package_height,
                 "shipping_weight": shipping_weight,
                 "wheel_size": wheel_size,
-                "average_star_rating": average_star_rating,
                 "bike_description": bike_description
                 }
-
+        
         url = modelsApi + 'item/create/'
         data = urllib.parse.urlencode(data)
         data = data.encode('utf-8') # data should be bytes
@@ -170,7 +171,6 @@ def createItem(request):
         response =  urllib.request.urlopen(req)
         ret = response.read().decode('utf-8')
         ret = json.loads(ret)
-
         if(ret['status'] == True):
             retJSON['status'] = True
             retJSON['message'] = "Item created"
@@ -180,7 +180,4 @@ def createItem(request):
     else:
         retJSON['status'] = False
         retJSON['message'] = "Authentication failure"
-    return JsonResponse(retJSON)
-
-
     return JsonResponse(retJSON)

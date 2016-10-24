@@ -186,37 +186,39 @@ def createlisting(request):
             "auth": auth
             }
 
-    url = baseApi+ 'createitem'
+   
+    url = baseApi+ 'createitem/'
     data = urllib.parse.urlencode(data)
     data = data.encode('utf-8') # data should be bytes
     req = urllib.request.Request(url, data)
     response =  urllib.request.urlopen(req)
     ret = response.read().decode('utf-8')
     resp = json.loads(ret)
-
-
     if resp and not resp['status']:
         # exp service reports invalid authenticator -- treat like user not logged in
-        return HttpResponseRedirect(reverse('homePageSplash')+ "?next=" + reverse("crlisting"))
-     
-    return render("listing_success.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item successfully created"})
+        return render(request, "listing_response.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item failed to be created. Are you logged in?"})
+
+    return render(request, "listing_response.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item successfully created"})
 
 def logout(request):
-    url = baseApi + "api/v1/logout"
+    url = baseApi + "logout"
 
+    response = HttpResponseRedirect(reverse('homePageSplash'))
     auth = request.COOKIES.get('auth')
-    request.delete_cookie(key = auth)
+    response.delete_cookie('auth')
     authpass = {'auth': auth}
 
     data = urllib.parse.urlencode(authpass)
+    data = data.encode('utf-8') # data should be bytes
     req = urllib.request.Request(url, data)
 
     response =  urllib.request.urlopen(req)
     ret = response.read().decode('utf-8')
     resp = json.loads(ret)
-
-    return resp
-
+    if(resp['status'] == True):
+        return render(request, "logout.html", {'log_message':'logout successful'})
+    else:
+        return render(request, "logout.html", {'log_message':'logout failure'})
 
 
 def invalidURL(request):
