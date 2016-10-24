@@ -178,7 +178,7 @@ class GetCreateValidAccountTestCase(TestCase):
 
     def test_success_createAccount(self):
         c = Client()
-        response = c.post(reverse('loginPage'), {'username': 'super_unique', 'passwd': 'super_unique_pass'})
+        response = c.post(reverse('createaccountPage'), {'username': 'super_unique', 'passwd': 'super_unique_pass'})
         self.assertEqual(response.status_code, 200)
         jsonResponse = json.loads(str(response.content, encoding='utf8'))
         self.assertEquals(jsonResponse['status'], True)
@@ -197,7 +197,7 @@ class GetCreateInvalidAccountTestCase(TestCase):
 
     def test_success_createFailAccount(self):
         c = Client()
-        response = c.post(reverse('loginPage'), {'username': 'super_unique', 'passwd': 'super_unique_pass'})
+        response = c.post(reverse('createaccountPage'), {'username': 'super_unique', 'passwd': 'super_unique_pass'})
         self.assertEqual(response.status_code, 200)
         jsonResponse = json.loads(str(response.content, encoding='utf8'))
         self.assertEquals(jsonResponse['status'], False)
