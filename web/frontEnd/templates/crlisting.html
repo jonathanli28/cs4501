@@ -50,6 +50,15 @@
                     <li>
                         <a href="blist">Search</a>
                     </li>
+                    <li>
+                        <a href="login">Login</a>
+                    </li>
+                    <li>
+                        <a href="signup">Signup</a>
+                    </li>
+                    <li>
+                        <a href="crlisting">List Item</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -65,7 +74,7 @@
                 <h2>Create Listing</h2>
                     <form class="form-listing" action="" method="post">
                         {% csrf_token %}
-                        {{ clisting_form }}
+                        {{ clisting_form.as_ul }}
                         <button type="submit" value="Submit">Create</button><br>
                     </form>
             </div>
