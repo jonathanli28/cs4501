@@ -79,7 +79,7 @@ def signupSplash(request):
                     'first_name': form.cleaned_data['first_name'],
                     'last_name': form.cleaned_data['last_name'],
                     'passwd': form.cleaned_data['password1'],
-                    'email': 'monkey@virginia.edu'}
+                    'email': form.cleaned_data['email']}
 
             url = baseApi+ 'createaccount'
             data = urllib.parse.urlencode(data)

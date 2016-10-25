@@ -70,7 +70,8 @@ def create_user(request):
         first_name=request.POST['first_name'],                             
         last_name=request.POST['last_name'],                             
         passwd=hashers.make_password(request.POST['passwd']),                                         \
-        date_created=datetime.datetime.now()                        
+        date_created=datetime.datetime.now(),
+        email = request.POST['email']                     
         )
 
     user.save()
