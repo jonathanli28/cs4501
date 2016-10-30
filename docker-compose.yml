@@ -12,6 +12,8 @@ kafka:
    environment:
       ADVERTISED_HOST: kafka
       ADVERTISED_PORT: 9092
+   ports: 
+      - "9092:9092"
    hostname: kafka
 
 es:
@@ -28,7 +30,7 @@ batch:
    links:
       - kafka:kafka
       - es:es
-   command: bash -c "python ./script.py"
+   command: "python ./script.py"
 
 models:
     image: tp33/django
@@ -45,6 +47,8 @@ exp:
    image: tp33/django
    links: 
       - models:models-api
+      - kafka:kafka
+      - es:es
    ports:
       - "8002:8000"
    volumes: 

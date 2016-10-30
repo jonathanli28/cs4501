@@ -181,7 +181,7 @@ class createItemTestCase(TestCase):
         pass
 
 #tests account creation and account creation right after one is created
-class CreateAccountTestCase(TestCase):
+class createAccountTestCase(TestCase):
     def setUp(self):     #setUp method is called before each test in this class
         pass              #nothing to set uunpit
 
@@ -206,7 +206,7 @@ class CreateAccountTestCase(TestCase):
     def tearDown(self):  #tearDown method is called after each test
         pass
 
-class GetCreateInvalidAccountTestCase(TestCase):
+class createInvalidAccountTestCase(TestCase):
     def setUp(self):     #setUp method is called before each test in this class
         pass              #nothing to set uunpit
 

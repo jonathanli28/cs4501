@@ -6,6 +6,7 @@ from elasticsearch import Elasticsearch
 
 # Create your views here.
 modelsApi = "http://models-api:8000/api/v1/"
+producer = KafkaProducer(bootstrap_servers='kafka:9092')
 
 def homePageData(request):
     if request.method == 'GET':
@@ -184,8 +185,6 @@ def createItem(request):
         else:
             retJSON['status'] = False
             retJSON['message'] = "Item failed to be created"
-
-        producer = KafkaProducer(bootstrap_servers=['kafka:9092'])
         data = {"picture": "",
                 "name": name,
                 "bike_style": bike_style,
@@ -199,17 +198,16 @@ def createItem(request):
                 "bike_description": bike_description,
                 "id": ret['pkey']
                 }
-        producer.send('new-listings-topic', json.dumps(data).encode('utf-8'))
-
+        response = producer.send('new-listings-topic', json.dumps(data).encode('utf-8'))
     else:
         retJSON['status'] = False
         retJSON['message'] = "Authentication failure"
     return JsonResponse(retJSON)
 
 def search(request):
-    es = Elasticsearch(['es'])
+    es = Elasticsearch([{'host': 'es', 'port': 9200}])
     results = es.search(index='listing_index', body={'query':
                                             {'query_string':
-                                                    {'query': request.POST['query_string']
+                                                    {'query': 'ccc'
                                                                       }}, 'size': 10})
     return JsonResponse(results)
