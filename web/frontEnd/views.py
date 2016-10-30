@@ -196,9 +196,9 @@ def createlisting(request):
     resp = json.loads(ret)
     if resp and not resp['status']:
         # exp service reports invalid authenticator -- treat like user not logged in
-        return render(request, "listing_response.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item failed to be created. Are you logged in?"})
+        return render(request, "listing_response.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"Item failed to be created. Are you logged in?"})
 
-    return render(request, "listing_response.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"item successfully created"})
+    return render(request, "listing_response.html", {'clisting_form':clisting_form, 'next':next, 'list_message':"Item successfully created"})
 
 def logout(request):
     url = baseApi + "logout"
@@ -216,9 +216,9 @@ def logout(request):
     ret = response.read().decode('utf-8')
     resp = json.loads(ret)
     if(resp['status'] == True):
-        return render(request, "logout.html", {'log_message':'logout successful'})
+        return render(request, "logout.html", {'log_message':'Logout successful'})
     else:
-        return render(request, "logout.html", {'log_message':'logout failure'})
+        return render(request, "logout.html", {'log_message':'Logout failure'})
 
 
 def invalidURL(request):
