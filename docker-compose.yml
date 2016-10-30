@@ -6,9 +6,27 @@
 #6. drop databases after each run? 
 
 #you should manually instantiate a database container called mysql
+kafka:
+   image: spotify/kafka
+   container_name: kafka
+   environment:
+      ADVERTISED_HOST: kafka
+      ADVERTISED_PORT: 9092
+   hostname: kafka
 
+es:
+   image: elasticsearch:2.0
+   container_name: es
+   ports:
+      - "9200:9200"
 
-
+batch:
+   image: tp33/django
+   container_name: batch
+   links:
+      - kafka:kafka
+      - es:es
+   #command: <run a python script that pulls messages from Kafka and indexs that in ES>
 models:
     image: tp33/django
     external_links:
@@ -38,4 +56,4 @@ web:
       - "8000:8000"
    volumes:
       - ./web:/app
-   command: bash -c " mod_wsgi-express start-server --reload-on-changes --url-alias /static ./web/static ./web/wsgi.py"
+   command: bash -c "mod_wsgi-express start-server --reload-on-changes --url-alias /static ./web/static ./web/wsgi.py"
