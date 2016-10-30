@@ -1,88 +1,13 @@
-{% load staticfiles %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% block title %}About Us{% endblock %}
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+{% block content_title %}
+    About Us
+{% endblock %}
 
-    <title>About {{title}}</title>
-
-
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/heroic-features.css' %}" rel="stylesheet">
-
-    <style>
-        img {
-            width: 100%;
-            height: auto;
-        }
-    </style>
-
-</head>
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="home">CycleOps</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-left">
-                    <li> <a href="about">About</a> </li>
-                    <li> <a href="blist">Item List</a> </li>
-                    <li> <a href="blist">Search</a> </li>
-                    <li> <a href="crlisting">Create Posting</a> </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li> <a href="login">Login</a> </li>
-                    <li> <a href="logout">Logout</a> </li>
-                    <li> <a href="signup">Signup</a> </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <div class="container">
-
-        <br>
-        <img src="{% static 'pics/cycleops_logo.png' %}" alt="">
-        <h1> About Us </h1>
-
-        <hr>
-
-        <!-- Page Features -->
-        <div >
-            <p> Founders: Byung, Jiaming, Jon. <br> We have a thirst for quality-assured, speedy, fun, and beautiful bicycles.
+{% block content %}
+    <p> Founders: Byung, Jiaming, Jon. <br> We have a thirst for quality-assured, speedy, fun, and beautiful bicycles.
             There's nothing better in the world than riding a bicycle without overwhelming expenses.
             Come join us for a quick and easy journey through our stores of bicycles. We're sure you'll enjoy the shopping experience here.</p>
-
-
-
-        </div>
-
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Internet Scale Labs</p>
-                </div>
-            </div>
-        </footer>
-    </div>
-</body>
-</html>
+{% endblock %}
