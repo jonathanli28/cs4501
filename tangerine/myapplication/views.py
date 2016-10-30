@@ -239,6 +239,7 @@ def createItem(request):
     retJSON = {}
     retJSON['status'] = True
     retJSON['message'] = "Successfully created bike"
+    retJSON['pkey'] = bike.id
     return JsonResponse(retJSON)
 
 def delete_item(request):

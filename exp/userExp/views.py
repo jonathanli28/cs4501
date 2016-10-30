@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import urllib.request, json
 from django.http import JsonResponse
+from kafka import KafkaProducer
+from elasticsearch import Elasticsearch
 
 # Create your views here.
 modelsApi = "http://models-api:8000/api/v1/"
@@ -163,7 +165,9 @@ def createItem(request):
                 "wheel_size": wheel_size,
                 "bike_description": bike_description
                 }
-        
+
+
+
         url = modelsApi + 'item/create/'
         data = urllib.parse.urlencode(data)
         data = data.encode('utf-8') # data should be bytes
@@ -171,13 +175,41 @@ def createItem(request):
         response =  urllib.request.urlopen(req)
         ret = response.read().decode('utf-8')
         ret = json.loads(ret)
+
+
+
         if(ret['status'] == True):
             retJSON['status'] = True
             retJSON['message'] = "Item created"
         else:
             retJSON['status'] = False
             retJSON['message'] = "Item failed to be created"
+
+        producer = KafkaProducer(bootstrap_servers=['kafka:9092'])
+        data = {"picture": "",
+                "name": name,
+                "bike_style": bike_style,
+                "brake_style": brake_style,
+                "color": color,
+                "frame_material": frame_material,
+                "speeds": speeds,
+                "package_height": package_height,
+                "shipping_weight": shipping_weight,
+                "wheel_size": wheel_size,
+                "bike_description": bike_description,
+                "id": ret['pkey']
+                }
+        producer.send('new-listings-topic', json.dumps(data).encode('utf-8'))
+
     else:
         retJSON['status'] = False
         retJSON['message'] = "Authentication failure"
     return JsonResponse(retJSON)
+
+def search(request):
+    es = Elasticsearch(['es'])
+    results = es.search(index='listing_index', body={'query':
+                                            {'query_string':
+                                                    {'query': request.POST['query_string']
+                                                                      }}, 'size': 10})
+    return JsonResponse(results)

@@ -8,5 +8,6 @@ urlpatterns = [
         url(r'^api/v1/createitem/?$', views.createItem, name = 'createitemPage'),
         url(r'^api/v1/login/?$', views.login, name = 'loginPage'),
         url(r'^api/v1/logout/?$', views.logout, name = 'logoutPage'),
+        url(r'^api/v1/search/?$', views.search, name = 'search'),
         url ('', views.invalidURL),
         ]
