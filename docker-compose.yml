@@ -23,10 +23,13 @@ es:
 batch:
    image: tp33/django
    container_name: batch
+   volumes:
+      - ./batch:/app
    links:
       - kafka:kafka
       - es:es
-   #command: <run a python script that pulls messages from Kafka and indexs that in ES>
+   command: bash -c "python ./script.py"
+
 models:
     image: tp33/django
     external_links:
