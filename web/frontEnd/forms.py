@@ -35,3 +35,6 @@ class CreateListingForm(forms.Form):
     shipping_weight = forms.CharField(widget = forms.TextInput(attrs = {'id': 'shipping_weight'}))
     wheel_size = forms.CharField(widget = forms.TextInput(attrs = {'id': 'wheel_size'}))
     bike_description = forms.CharField(widget = forms.TextInput(attrs = {'id': 'bike_description'}))
+
+class SearchForm(forms.Form):
+    searchQ = forms.CharField(widget = forms.TextInput(attrs = {'id': 'query', 'size': 100}), label='')

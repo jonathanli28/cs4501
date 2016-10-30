@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block title %}Search CycleOps{% endblock %}
+
+{% block content_title %}
+    Search CycleOps
+{% endblock %}
+
+{% block content %}
+    <div class="search-form">
+            <form class="search-form" >
+                {% csrf_token %}
+                {{ search_form }}
+                <button type="submit" value="Submit">Search</button><br>
+            </form>
+    </div><br>
+{% endblock %}

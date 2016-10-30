@@ -7,10 +7,9 @@ urlpatterns = [
     url(r'^about', views.aboutSplash, name='aboutSplash'),
     url(r'^signup', views.signupSplash, name='signupSplash'),
     url(r'^login', views.loginSplash, name='loginSplash'),
-   # url(r'^blist', views.blistSplash, name='blistSplash'),
     url(r'^crlisting', views.createlisting, name='crlisting'),
     url(r'^logout', views.logout, name='logout'),
-   # url(r'^signuprejected', views.signuprejected, name='signuprejected'),
+    url(r'^search', views.searchSplash, name='search'),
     url('', views.invalidURL)
     
 ]

@@ -6,6 +6,7 @@ from django.template.defaulttags import register
 from .forms import UserSignupForm
 from .forms import LogForm
 from .forms import CreateListingForm
+from .forms import SearchForm
 from django import forms
 from django.core.urlresolvers import reverse
 
@@ -220,6 +221,15 @@ def logout(request):
     else:
         return render(request, "logout.html", {'log_message':'Logout failure'})
 
+
+def searchSplash(request):
+    search_form = SearchForm
+    next = reverse('homePageSplash') or request.GET.get('next')
+    if request.method == 'GET':
+        return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
+    s = SearchForm(request.POST)
+    if not s.is_valid():
+        return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
 
 def invalidURL(request):
     obj= {}

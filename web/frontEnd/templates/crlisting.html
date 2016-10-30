@@ -8,7 +8,6 @@
 
 {% block content %}
     <div class="crlisting-form">
-        <h2>Create Listing</h2>
         <form class="form-listing" action="" method="post">
             {% csrf_token %}
             {{ clisting_form.as_ul }}
