@@ -21,13 +21,20 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ forloop.counter }}">TEMP NAME TESTING - REPLACE WITH DJANGO CODE</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ forloop.counter }}">Bicycle {{ forloop.counter }}</a>
                         </h4>
                     </div>
                     <div id="collapse_{{ forloop.counter }}" class="panel-collapse collapse">
                         <div class="panel-body">
                             <p>
-                                hello world {{ forloop.counter0 }}
+                                <table style="width:100%">
+                                    {% for mykey,myvalue in bicycle.items %}
+                                        <tr>
+                                            <td>{{ mykey }}</td>
+                                            <td>{{ myvalue }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
                             </p>
                         </div>
                     </div>
