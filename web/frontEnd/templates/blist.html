@@ -8,18 +8,18 @@
 
 {% block content %}
     <div class="bike-list">
-        {% for i in "xxx" %}
+        {% for i in "xxxxxxxxxxxxxxxx" %}
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">TEMP NAME TESTING - REPLACE WITH DJANGO CODE {{ forloop.counter0 }}</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ forloop.counter }}">TEMP NAME TESTING - REPLACE WITH DJANGO CODE {{ forloop.counter0 }}</a>
                         </h4>
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
+                    <div id="collapse_{{ forloop.counter }}" class="panel-collapse collapse">
                         <div class="panel-body">
                             <p>
-                                helo bich
+                                hello world {{ forloop.counter0 }}
                             </p>
                         </div>
                     </div>
