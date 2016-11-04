@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.core.urlresolvers import reverse
-import unittest, json
+import unittest, json, time
 
 #project 3 test cases 
 class GetItemTestCase(TestCase):
@@ -222,3 +222,35 @@ class createInvalidAccountTestCase(TestCase):
 
     def tearDown(self):  #tearDown method is called after each test
         pass
+
+class searchTestCase(TestCase):
+    def setUp(self):     #setUp method is called before each test in this class
+        pass              #nothing to set uunpit
+
+    def test_search(self):
+
+        response = self.client.post(reverse('loginPage'), {'username': 'ianian', 'passwd': 'hello'})
+        ret = response.content.decode('utf-8')
+        ret = json.loads(ret)
+        response = self.client.post(reverse('createitemPage'), {"picture": "",
+                "name": 'big bike',
+                "bike_style": 'pretty',
+                "brake_style": 'great brakes',
+                "color": 'green',
+                "frame_material": 'kryptonite',
+                "speeds": 'high speed',
+                "package_height": '20 ft',
+                "shipping_weight": '20 pounds',
+                "wheel_size": '10 inches',
+                "bike_description": 'super awesome bike bro',
+                "auth":ret['auth']
+                })
+        time.sleep(45)
+        response = self.client.post(reverse('search'), {'query': 'big bike'})
+        ret = response.content.decode('utf-8')
+        ret = json.loads(ret)
+        self.assertEquals(ret['name'], 'big bike')
+
+    def tearDown(self):  #tearDown method is called after each test
+        pass
+
