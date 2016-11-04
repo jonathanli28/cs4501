@@ -239,8 +239,8 @@ def searchSplash(request):
     next = reverse('homePageSplash') or request.GET.get('next')
     if request.method == 'GET':
         return render(request, 'search_index.html', {'search_form': search_form, 'next': next})
-    
-    s = SearchForm(request.POST)
+    form = SomeModelForm(request.POST or None, initial={"option": "10"})
+    s = SearchForm(request.POST, initial={"searchQ": request.POST['query']})
     return HttpResponse(s.is_valid())
     if s.is_valid():
         return HttpResponse("fuck")
@@ -259,6 +259,11 @@ def searchSplash(request):
     
    
     return HttpResponse(searchterm)
+
+
+
+
+
 def invalidURL(request):
     obj= {}
     obj['status'] = False
