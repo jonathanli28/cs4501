@@ -37,4 +37,4 @@ class CreateListingForm(forms.Form):
     bike_description = forms.CharField(widget = forms.TextInput(attrs = {'id': 'bike_description'}))
 
 class SearchForm(forms.Form):
-    searchQ = forms.CharField(widget = forms.TextInput(attrs = {'id': 'query', 'size': 100}), label='')
+    searchQ = forms.CharField(widget = forms.TextInput(attrs = {'id': 'query', 'size': 100}))

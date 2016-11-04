@@ -177,8 +177,6 @@ def createItem(request):
         ret = response.read().decode('utf-8')
         ret = json.loads(ret)
 
-
-
         if(ret['status'] == True):
             retJSON['status'] = True
             retJSON['message'] = "Item created"
@@ -205,9 +203,10 @@ def createItem(request):
     return JsonResponse(retJSON)
 
 def search(request):
+    query = request.POST['data']
     es = Elasticsearch([{'host': 'es', 'port': 9200}])
     results = es.search(index='listing_index', body={'query':
                                             {'query_string':
-                                                    {'query': 'ccc'
+                                                    {'query': query
                                                                       }}, 'size': 10})
     return JsonResponse(results)

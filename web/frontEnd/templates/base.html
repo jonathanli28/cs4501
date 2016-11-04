@@ -44,12 +44,13 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li> <a href="about">About</a> </li>
                     <li> <a href="blist">Item List</a> </li>
-                    <li> <a href="search">Search</a> </li>
+                    <li> <a href="search">Search </a> </li>
                     <li> <a href="crlisting">Create Listing</a> </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <form class="navbar-form navbar-left" role="search" action="search">
+                        <form class="navbar-form navbar-left" role="search" action="search" method = "post">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Search" name="search">
                             </div>

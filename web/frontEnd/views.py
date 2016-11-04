@@ -130,6 +130,9 @@ def loginSplash(request):
     response = HttpResponseRedirect(next)
     response.set_cookie("auth", authenticator)
     return response
+
+
+
 """
 def login_required(f):
     def wrap(request, *args, **kwargs):
@@ -223,6 +226,7 @@ def logout(request):
 
 
 def searchSplash(request):
+    """
     search_form = SearchForm
     next = reverse('homePageSplash') or request.GET.get('next')
     if request.method == 'GET':
@@ -230,7 +234,31 @@ def searchSplash(request):
     s = SearchForm(request.POST)
     if not s.is_valid():
         return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
-
+    """
+    search_form = SearchForm
+    next = reverse('homePageSplash') or request.GET.get('next')
+    if request.method == 'GET':
+        return render(request, 'search_index.html', {'search_form': search_form, 'next': next})
+    
+    s = SearchForm(request.POST)
+    return HttpResponse(s.is_valid())
+    if s.is_valid():
+        return HttpResponse("fuck")
+        query = s.cleaned_data('query')
+        data = {"query": query}
+        url = baseApi+ 'search/'
+        data = urllib.parse.urlencode(data)
+        data = data.encode('utf-8') # data should be bytes
+        req = urllib.request.Request(url, data)
+        response =  urllib.request.urlopen(req)
+        ret = response.read().decode('utf-8')
+        resp = json.loads(ret)
+        return HttpResponse(resp)
+    else:
+        return render(request, 'search_index.html', {'search_form': search_form, 'next': next})
+    
+   
+    return HttpResponse(searchterm)
 def invalidURL(request):
     obj= {}
     obj['status'] = False
