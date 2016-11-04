@@ -239,21 +239,23 @@ def searchSplash(request):
     next = reverse('homePageSplash') or request.GET.get('next')
     if request.method == 'GET':
         return render(request, 'search_index.html', {'search_form': search_form, 'next': next})
-    form = SomeModelForm(request.POST or None, initial={"option": "10"})
-    s = SearchForm(request.POST, initial={"searchQ": request.POST['query']})
-    return HttpResponse(s.is_valid())
-    if s.is_valid():
-        return HttpResponse("fuck")
-        query = s.cleaned_data('query')
+
+   # s = SearchForm(request.POST, initial={"searchQ": request.POST['search']})
+    s = SearchForm(request.POST)
+    formResult = s.is_valid()
+    if formResult:
+
+        query = s.cleaned_data['search']
         data = {"query": query}
         url = baseApi+ 'search/'
         data = urllib.parse.urlencode(data)
         data = data.encode('utf-8') # data should be bytes
         req = urllib.request.Request(url, data)
         response =  urllib.request.urlopen(req)
+        
         ret = response.read().decode('utf-8')
         resp = json.loads(ret)
-        return HttpResponse(resp)
+        return JsonResponse(resp)
     else:
         return render(request, 'search_index.html', {'search_form': search_form, 'next': next})
     
