@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^logout', views.logout, name='logout'),
     url(r'^search', views.searchSplash, name='search'),
     url(r'^searchHeader', views.searchSplash, name='searchHeader'),
+    url(r'^blist', views.blistSplash, name='blist'),
     url('', views.invalidURL)
     
 ]
