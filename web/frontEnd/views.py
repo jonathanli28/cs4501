@@ -258,12 +258,12 @@ def searchSplash(request):
         checkHits = len(resp["hits"]["hits"])
         if checkHits > 0 :
             pList = parseSearchResults(resp)
-            return render(request, 'search_result.html', {'search_form': search_form, 'next': next, "result":pList})
+            return render(request, 'search_result.html', {'search_form': s, 'next': next, "result":pList})
         else : 
-            return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
+            return render(request, 'search_result.html', {'search_form': s, 'next': next})
     
     else:
-        return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
+        return render(request, 'search_result.html', {'search_form': s, 'next': next})
     
    
     return HttpResponse(searchterm)

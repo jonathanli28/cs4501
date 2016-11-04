@@ -15,7 +15,7 @@ def do_something(sc):
 		ret = es.index(index='listing_index', doc_type='listing', id=new_listing['id'], body=new_listing)
 	es.indices.refresh(index="listing_index")
 
-	s.enter(60, 1, do_something, (sc,))
+	s.enter(30, 1, do_something, (sc,))
 
-s.enter(60, 1, do_something, (s,))
+s.enter(30, 1, do_something, (s,))
 s.run()
