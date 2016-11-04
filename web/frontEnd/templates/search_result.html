@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="search-form">
-            <form class="search-form" >
+            <form class="search-form" role="search" action="search" method = "post">>
                 {% csrf_token %}
                 {{ search_form }}
                 <button type="submit" value="Submit">Search</button><br>
@@ -16,23 +16,26 @@
     </div><br>
 
     <div class="bike-list">
+        <b> {{message }} </b>
         {% for res in result %}
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ forloop.counter }}">Bicycle {{ forloop.counter }}</a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ forloop.counter }}">Bicycle {{ forloop.counter}} : {{ res.name }} </a>
                         </h4>
                     </div>
                     <div id="collapse_{{ forloop.counter }}" class="panel-collapse collapse">
                         <div class="panel-body">
                             <p>
                                 <table style="width:100%">
-                                    {% for mykey,myvalue in bicycle.items %}
+                                    {% for mykey,myvalue in res.items %}
+                                        {% if mykey !=  'name' and mykey != 'picture' and mykey != 'id' %}
                                         <tr>
                                             <td>{{ mykey }}</td>
                                             <td>{{ myvalue }}</td>
                                         </tr>
+                                        {% endif %}
                                     {% endfor %}
                                 </table>
                             </p>
