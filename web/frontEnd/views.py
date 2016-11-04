@@ -238,7 +238,7 @@ def searchSplash(request):
     search_form = SearchForm
     next = reverse('homePageSplash') or request.GET.get('next')
     if request.method == 'GET':
-        return render(request, 'search_index.html', {'search_form': search_form, 'next': next})
+        return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
 
    # s = SearchForm(request.POST, initial={"searchQ": request.POST['search']})
     s = SearchForm(request.POST)
@@ -252,15 +252,30 @@ def searchSplash(request):
         data = data.encode('utf-8') # data should be bytes
         req = urllib.request.Request(url, data)
         response =  urllib.request.urlopen(req)
-        
         ret = response.read().decode('utf-8')
         resp = json.loads(ret)
-        return JsonResponse(resp)
+
+        checkHits = len(resp["hits"]["hits"])
+        if checkHits > 0 :
+            pList = parseSearchResults(resp)
+            return render(request, 'search_result.html', {'search_form': search_form, 'next': next, "result":pList})
+        else : 
+            return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
+    
     else:
-        return render(request, 'search_index.html', {'search_form': search_form, 'next': next})
+        return render(request, 'search_result.html', {'search_form': search_form, 'next': next})
     
    
     return HttpResponse(searchterm)
+
+def parseSearchResults(resp):
+
+    hitList = resp["hits"]["hits"]
+    parsedList = []
+    for item in hitList:
+        i = item["_source"]
+        parsedList.append(i)
+    return parsedList
 
 
 
