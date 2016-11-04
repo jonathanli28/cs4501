@@ -256,14 +256,15 @@ def searchSplash(request):
         resp = json.loads(ret)
 
         checkHits = len(resp["hits"]["hits"])
+        resp
         if checkHits > 0 :
             pList = parseSearchResults(resp)
             return render(request, 'search_result.html', {'search_form': s, 'next': next, "result":pList})
         else : 
-            return render(request, 'search_result.html', {'search_form': s, 'next': next})
+            return render(request, 'search_result.html', {'search_form': s, 'next': next, "message": "No results found. "})
     
     else:
-        return render(request, 'search_result.html', {'search_form': s, 'next': next})
+        return render(request, 'search_result.html', {'search_form': s, 'next': next, "message": "No results found. "})
     
    
     return HttpResponse(searchterm)
