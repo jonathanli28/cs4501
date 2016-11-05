@@ -245,12 +245,76 @@ class searchTestCase(TestCase):
                 "bike_description": 'super awesome bike bro',
                 "auth":ret['auth']
                 })
-        time.sleep(45)
+        print("testing search, please wait")
+        time.sleep(35)
         response = self.client.post(reverse('search'), {'query': 'big bike'})
         ret = response.content.decode('utf-8')
-        ret = json.loads(ret)
-        self.assertEquals(ret['name'], 'big bike')
+        resp = json.loads(ret)
+        checkHits = len(resp["hits"]["hits"])
+        self.assertGreater(checkHits, 0)
+        oneResult = resp["hits"]["hits"][0]["_source"]
+        self.assertEquals(oneResult['name'], 'big bike')
 
     def tearDown(self):  #tearDown method is called after each test
         pass
 
+class searchTestCase2(TestCase):
+    def setUp(self):     #setUp method is called before each test in this class
+        pass              #nothing to set uunpit
+
+    def test_search(self):
+
+        response = self.client.post(reverse('loginPage'), {'username': 'ianian', 'passwd': 'hello'})
+        ret = response.content.decode('utf-8')
+        ret = json.loads(ret)
+        response = self.client.post(reverse('createitemPage'), {"picture": "",
+                "name": 'big bike',
+                "bike_style": 'pretty',
+                "brake_style": 'great brakes',
+                "color": 'green',
+                "frame_material": 'kryptonite',
+                "speeds": 'high speed',
+                "package_height": '20 ft',
+                "shipping_weight": '20 pounds',
+                "wheel_size": '10 inches',
+                "bike_description": 'super awesome bike bro',
+                "auth":ret['auth']
+                })
+        response = self.client.post(reverse('createitemPage'), {"picture": "",
+                "name": 'great bike',
+                "bike_style": 'pretty',
+                "brake_style": 'great brakes',
+                "color": 'green',
+                "frame_material": 'kryptonite',
+                "speeds": 'high speed',
+                "package_height": '20 ft',
+                "shipping_weight": '20 pounds',
+                "wheel_size": '10 inches',
+                "bike_description": 'super awesome bike bro',
+                "auth":ret['auth']
+                })
+        response = self.client.post(reverse('createitemPage'), {"picture": "",
+                "name": 'great bike',
+                "bike_style": 'pretty',
+                "brake_style": 'great brakes',
+                "color": 'green',
+                "frame_material": 'kryptonite',
+                "speeds": 'high speed',
+                "package_height": '20 ft',
+                "shipping_weight": '20 pounds',
+                "wheel_size": '10 inches',
+                "bike_description": 'super awesome bike bro',
+                "auth":ret['auth']
+                })
+
+
+        print("testing search, please wait")
+        time.sleep(35)
+        response = self.client.post(reverse('search'), {'query': 'great'})
+        ret = response.content.decode('utf-8')
+        resp = json.loads(ret)
+        checkHits = len(resp["hits"]["hits"])
+        self.assertGreater(checkHits, 2)
+
+    def tearDown(self):  #tearDown method is called after each test
+        pass

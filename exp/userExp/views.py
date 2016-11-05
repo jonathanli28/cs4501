@@ -206,7 +206,6 @@ def search(request):
     query = request.POST['query']
 
     es = Elasticsearch([{'host': 'es', 'port': 9200}])
-#    return JsonResponse({'hello':query})
     results = es.search(index='listing_index', body={'query':
                                             {'query_string':
                                                     {'query': query
