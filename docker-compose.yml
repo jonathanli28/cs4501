@@ -41,7 +41,7 @@ models:
     ports:
       - "8001:8000"
       #command: bash -c "<command_1> && <command_2> && ..."
-    command: bash -c "python manage.py flush --noinput && python manage.py flush --noinput && python manage.py makemigrations && python manage.py migrate && python manage.py loaddata ./fixtures/db.json && mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py "
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata ./fixtures/db.json && mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py "
 
 exp:
    image: tp33/django
