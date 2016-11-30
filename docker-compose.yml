@@ -6,22 +6,30 @@
 #6. drop databases after each run? 
 
 #you should manually instantiate a database container called mysql
+jm:
+   image: hauptmedia/jmeter
+   container_name: jm
+   links:
+      - web
+   volumes:
+      - ./jm:/app
+   command: bash -c "bin/jmeter -n -t /app/loadtest.jmx -l /app/testresults.jtl && tail -f /dev/null"
+
 kafka:
    image: spotify/kafka
    container_name: kafka
    environment:
       ADVERTISED_HOST: kafka
       ADVERTISED_PORT: 9092
-   ports: 
-      - "9092:9092"
+   #ports: 
+   #   - "9092:9092"
    hostname: kafka
 
 es:
    image: elasticsearch:2.0
    container_name: es
-   ports:
-      - "9200:9200"
-
+   #ports:
+   #   - "9200:9200"
 batch:
    image: tp33/django
    container_name: batch
@@ -38,8 +46,8 @@ models:
       -  mysql:db
     volumes:
       - ./tangerine:/app
-    ports:
-      - "8001:8000"
+    #ports:
+    #  - "8001:8000"
       #command: bash -c "<command_1> && <command_2> && ..."
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata ./fixtures/db.json && mod_wsgi-express start-server --reload-on-changes ./tangerine/wsgi.py "
 
@@ -49,8 +57,8 @@ exp:
       - models:models-api
       - kafka:kafka
       - es:es
-   ports:
-      - "8002:8000"
+   #ports:
+   #   - "8002:8000"
    volumes: 
       - ./exp:/app
    command: bash -c "mod_wsgi-express start-server --reload-on-changes ./exp/wsgi.py"
