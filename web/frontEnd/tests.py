@@ -51,7 +51,6 @@ class FrontEndLogoutTests(unittest.TestCase):
         self.driver.close()
 
 
-
 class FrontEndCreateItemTests(unittest.TestCase):
 
     def setUp(self):
