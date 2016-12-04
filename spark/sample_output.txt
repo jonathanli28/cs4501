@@ -1,0 +1,91 @@
+------ READ IN VALUES ------
+
+gloriousleader  3
+virginiabeach   1
+chineeztakeout  3
+virginiabeach   3
+gloriousleader  5
+chineeztakeout  1
+virginiabeach   2
+virginiabeach   5
+gloriousleader  4
+gloriousleader  1
+gloriousleader  2
+chineeztakeout  3
+virginiabeach   2
+aaron   1
+aaron   3
+beb 2
+beb 3
+jeb 4
+jeb 5
+rump    5
+rump    4
+
+
+------ Group into user_id, list of items ------
+gloriousleader  3
+gloriousleader  5
+gloriousleader  4
+gloriousleader  1
+gloriousleader  2
+virginiabeach   1
+virginiabeach   3
+virginiabeach   2
+virginiabeach   5
+virginiabeach   2
+chineeztakeout  3
+chineeztakeout  1
+chineeztakeout  3
+aaron   1
+aaron   3
+beb 2
+beb 3
+jeb 4
+jeb 5
+rump    5
+rump    4
+
+------ Transform ------
+gloriousleader 3, 5, 4, 1, 2 ------> (3, 5), (3, 4), (1, 3), (2, 3), (4, 5), (1, 5), (2, 5), (1, 4), (2, 4), (1, 2)
+virginiabeach 1, 3, 2, 5, 2  ------> (1, 3), (1, 2), (1, 5), (2, 3), (3, 5), (2, 5)
+chineeztakeout 3, 1, 3  -----------> (1, 3)
+aaron 1, 3  -----------------------> (1, 3)
+beb 2, 3  -------------------------> (2, 3)
+jeb 4, 5  -------------------------> (4, 5)
+rump 5, 4  ------------------------> (4, 5)
+
+------ Transform ------
+(3, 5) - gloriousleader, virginiabeach
+(3, 4) - gloriousleader
+(1, 3) - gloriousleader, virginiabeach, chineeztakeout, aaron
+(2, 3) - gloriousleader, virginiabeach, beb
+(4, 5) - gloriousleader, jeb, rump
+(1, 5) - gloriousleader
+(2, 5) - gloriousleader, virginiabeach
+(1, 4) - gloriousleader
+(2, 4) - gloriousleader
+(1, 2) - gloriousleader, virginiabeach
+
+
+------ Count ------
+(3, 5) - 2
+(3, 4) - 1
+(1, 3) - 4
+(2, 3) - 3
+(4, 5) - 3
+(1, 5) - 1
+(2, 5) - 2
+(1, 4) - 1
+(2, 4) - 1
+(1, 2) - 2
+
+
+------ Filter ------
+(1, 3)
+(2, 3)
+(4, 5)
+
+
+
+
