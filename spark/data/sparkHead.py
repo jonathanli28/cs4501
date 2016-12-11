@@ -4,14 +4,13 @@ import itertools
 #generates user, coviews for step 3
 def generateUserItemPair(userList):
 	l = []
-	for i, j in itertools.combinations(userList[1], 2):
+	for i, j in itertools.combinations(sorted(userList[1]), 2):
 		l.append((userList[0], (i,j)))
 	return l
 
-
 sc = SparkContext("spark://spark-master:7077", "PopularItems")
 
-data = sc.textFile("/tmp/data/access2.log", 2)     # each worker loads a piece of the data file
+data = sc.textFile("/tmp/data/access.log2", 2)     # each worker loads a piece of the data file
 
 #1. Read data in as pairs of (user_id, item_id clicked on by the user)
 userItems = data.map(lambda line: line.split("\t"))   # tell each worker to split each line of it's partition
@@ -28,7 +27,6 @@ itemPairUserList = userItemPairs.map(lambda x : (x[1],x[0]));
 
 #pretty sure they're already distinct, check later
 itemPairUserList = itemPairUserList.distinct();
-
 
 # 5. Transform into ((item1, item2), count of distinct users who co-clicked (item1, item2)
 
