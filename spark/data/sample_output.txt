@@ -21,7 +21,21 @@ jeb 4
 jeb 5
 rump    5
 rump    4
-
+------------------------------------
+pimple	5
+pimple	2
+building	3
+building	1
+star	2	
+star	3
+runner	4
+runner	3
+beb	4
+fire	4
+fire	3
+led	5
+led	2
+led	3
 
 ------ Group into user_id, list of items ------
 gloriousleader  3
@@ -45,47 +59,67 @@ jeb 4
 jeb 5
 rump    5
 rump    4
+pimple	2
+pimple	5
+building	1
+building 3
+star	3
+star	2
+runner	3
+runner	4
+beb	4
+fire	4
+fire	3
+led	5
+led	2
+led	3
 
 ------ Transform ------
 gloriousleader 3, 5, 4, 1, 2 ------> (3, 5), (3, 4), (1, 3), (2, 3), (4, 5), (1, 5), (2, 5), (1, 4), (2, 4), (1, 2)
 virginiabeach 1, 3, 2, 5, 2  ------> (1, 3), (1, 2), (1, 5), (2, 3), (3, 5), (2, 5)
 chineeztakeout 3, 1, 3  -----------> (1, 3)
 aaron 1, 3  -----------------------> (1, 3)
-beb 2, 3  -------------------------> (2, 3)
+beb 2, 3, 4  -------------------------> (2, 3), (2, 4), (3,4)
 jeb 4, 5  -------------------------> (4, 5)
 rump 5, 4  ------------------------> (4, 5)
+pimple 2, 5 (2, 5)
+building (1, 3)
+star (2,3)
+runner (3, 4)
+fire (3, 4)
+led (2, 3), (2, 5), (3, 5)
 
 ------ Transform ------
-(3, 5) - gloriousleader, virginiabeach
-(3, 4) - gloriousleader
-(1, 3) - gloriousleader, virginiabeach, chineeztakeout, aaron
-(2, 3) - gloriousleader, virginiabeach, beb
+(3, 5) - gloriousleader, virginiabeach, led
+(3, 4) - gloriousleader, runner, fire
+(1, 3) - gloriousleader, virginiabeach, chineeztakeout, aaron, building
+(2, 3) - gloriousleader, virginiabeach, beb, star, led
 (4, 5) - gloriousleader, jeb, rump
 (1, 5) - gloriousleader
-(2, 5) - gloriousleader, virginiabeach
+(2, 5) - gloriousleader, virginiabeach, pimple, led
 (1, 4) - gloriousleader
 (2, 4) - gloriousleader
 (1, 2) - gloriousleader, virginiabeach
 
 
 ------ Count ------
-(3, 5) - 2
-(3, 4) - 1
-(1, 3) - 4
-(2, 3) - 3
+(3, 5) - 3
+(3, 4) - 3
+(1, 3) - 5
+(2, 3) - 5
 (4, 5) - 3
 (1, 5) - 1
-(2, 5) - 2
+(2, 5) - 4
 (1, 4) - 1
 (2, 4) - 1
 (1, 2) - 2
 
 
 ------ Filter ------
-(1, 3)
-(2, 3)
-(4, 5)
-
+top entries:
+1, 3
+2, 3
+2, 5
 
 
 
